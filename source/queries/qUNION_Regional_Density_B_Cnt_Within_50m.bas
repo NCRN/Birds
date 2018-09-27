@@ -1,0 +1,15 @@
+﻿dbMemo "SQL" ="SELECT qCALC_Regional_Density_B_Cnt_within_50m.Year, qCALC_Regional_Density_B_Cn"
+    "t_within_50m.AOU_Code, qCALC_Regional_Density_B_Cnt_within_50m.Species_Count_50\015"
+    "\012FROM qCALC_Regional_Density_B_Cnt_within_50m\015\012UNION ALL SELECT qry_SUM"
+    "_CHIC_By_Year_lt_50m_Region.Year, \"UNCH\", qry_SUM_CHIC_By_Year_lt_50m_Region.U"
+    "NCHIC\015\012FROM qry_SUM_CHIC_By_Year_lt_50m_Region;\015\012"
+dbMemo "Connect" =""
+dbBoolean "ReturnsRecords" ="-1"
+dbInteger "ODBCTimeout" ="60"
+dbBoolean "OrderByOn" ="0"
+dbByte "Orientation" ="0"
+dbByte "DefaultView" ="2"
+dbBoolean "FilterOnLoad" ="0"
+dbBoolean "OrderByOnLoad" ="-1"
+Begin
+End
