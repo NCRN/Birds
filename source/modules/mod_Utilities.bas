@@ -1743,9 +1743,14 @@ End If
 End Function
 Public Function fxnActivateSwitchboard()
 
-Forms!frm_Switchboard!cmdEnter.Enabled = True
-Forms!frm_Switchboard!cmdReview.Enabled = True
-Forms!frm_Switchboard!cmd_Locations.Enabled = True
-'Forms!frm_Switchboard!cmd_Routes.Enabled = True
+' 3/3/2019 - BLC - Update control names
+'Forms!frm_Switchboard!cmdEnter.Enabled = True
+'Forms!frm_Switchboard!cmdReview.Enabled = True
+'Forms!frm_Switchboard!cmd_Locations.Enabled = True
+''Forms!frm_Switchboard!cmd_Routes.Enabled = True
+
+Forms!frm_Switchboard!btnEnter.Enabled = True
+Forms!frm_Switchboard!btnReview.Enabled = True
+Forms!frm_Switchboard!btnLocations.Enabled = True
 
 End Function

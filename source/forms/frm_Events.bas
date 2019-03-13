@@ -16,9 +16,10 @@ Begin Form
     Width =13516
     DatasheetFontHeight =10
     ItemSuffix =198
-    Left =4710
-    Right =18225
-    Bottom =12180
+    Left =840
+    Top =-165
+    Right =14355
+    Bottom =7575
     DatasheetGridlinesColor =12632256
     Filter ="[Location_ID]='20070118125204-479777574.539185' AND [Event_ID]='{D49BDEFE-CCF5-4"
         "757-ABE3-6C867758E829}'"
@@ -143,7 +144,7 @@ Begin Form
                     FontWeight =700
                     BackColor =0
                     ForeColor =16777215
-                    Name ="Label36"
+                    Name ="lblTitle"
                     Caption ="Forest Bird Sampling Events"
                     FontName ="Tahoma"
                     LayoutCachedLeft =45
@@ -1074,10 +1075,6 @@ Attribute VB_Exposed = False
 Option Compare Database
 Dim booEditState As Boolean
 
-
-
-
-
 Private Sub Form_BeforeInsert(Cancel As Integer)
     On Error GoTo Err_Handler
 
@@ -1111,6 +1108,7 @@ If IsLoaded("frm_Switchboard") Then
     DoCmd.Close acForm, "frm_Switchboard"
 End If
 
+Me.lblTitle.Caption = APP_SUBSET & " Bird Sampling Events"
 
 End Sub
 

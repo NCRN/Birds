@@ -22,18 +22,19 @@ Begin Form
     Cycle =1
     GridX =24
     GridY =24
-    Width =9900
+    Width =10440
     DatasheetFontHeight =10
-    ItemSuffix =88
-    Left =9405
-    Top =2010
-    Right =19305
-    Bottom =8415
+    ItemSuffix =89
+    Left =1425
+    Top =585
+    Right =11865
+    Bottom =6990
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x4e0c3f44d5cee240
     End
     RecordSource ="tsys_App_Defaults"
+    Caption ="NCRN Forest Bird Monitoring Database"
     OnCurrent ="[Event Procedure]"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Arial"
@@ -41,6 +42,7 @@ Begin Form
         0xa0050000a0050000a0050000a005000000000000201c0000e010000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
+    OnActivate ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
     AllowDatasheetView =0
     FilterOnLoad =0
@@ -121,7 +123,7 @@ Begin Form
                 Begin Image
                     BackStyle =1
                     SizeMode =3
-                    Left =8220
+                    Left =8700
                     Top =60
                     Width =1620
                     Height =1560
@@ -910,9 +912,9 @@ Begin Form
                     ControlTipText ="Double-click to open website"
                     Picture ="NPS_arrowhead_shade_black.JPG"
 
-                    LayoutCachedLeft =8220
+                    LayoutCachedLeft =8700
                     LayoutCachedTop =60
-                    LayoutCachedWidth =9840
+                    LayoutCachedWidth =10320
                     LayoutCachedHeight =1620
                 End
                 Begin Label
@@ -944,7 +946,7 @@ Begin Form
                     FontWeight =700
                     ForeColor =16777215
                     Name ="lblNetwork"
-                    Caption ="[National Capital Region Network]\015\012Inventory and Monitoring Program"
+                    Caption ="NPS\015\012Inventory and Monitoring Program"
                     FontName ="Tahoma"
                     OnDblClick ="[Event Procedure]"
                     ShortcutMenuBar ="Double-click to open website"
@@ -960,17 +962,17 @@ Begin Form
                     TextFontCharSet =177
                     Left =240
                     Top =780
-                    Width =7860
+                    Width =8340
                     Height =540
                     FontSize =20
                     FontWeight =700
                     ForeColor =16777215
-                    Name ="lbl_DB_Title"
-                    Caption ="[Forest Bird Monitoring Databse]"
+                    Name ="lblTitle"
+                    Caption ="NCRN Grassland Bird Monitoring Database"
                     FontName ="Arial"
                     LayoutCachedLeft =240
                     LayoutCachedTop =780
-                    LayoutCachedWidth =8100
+                    LayoutCachedWidth =8580
                     LayoutCachedHeight =1320
                 End
             End
@@ -980,35 +982,37 @@ Begin Form
             Height =4800
             BackColor =11056034
             Name ="Detail"
+            AlternateBackColor =11056034
             Begin
                 Begin Tab
                     FontItalic = NotDefault
-                    OverlapFlags =85
+                    OverlapFlags =93
                     BackStyle =0
-                    Top =60
-                    Width =9660
-                    Height =3720
+                    Top =45
+                    Width =10260
+                    Height =3765
                     FontSize =9
                     FontWeight =700
                     Name ="tabMenu"
                     FontName ="Arial"
 
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =9660
-                    LayoutCachedHeight =3780
+                    LayoutCachedTop =45
+                    LayoutCachedWidth =10260
+                    LayoutCachedHeight =3810
                     Begin
                         Begin Page
                             OverlapFlags =87
                             Left =120
-                            Top =495
-                            Width =9405
-                            Height =3150
-                            Name ="pagMain"
+                            Top =480
+                            Width =10005
+                            Height =3195
+                            Name ="pgMain"
+                            OnClick ="[Event Procedure]"
                             Caption =" Main menu"
                             LayoutCachedLeft =120
-                            LayoutCachedTop =495
-                            LayoutCachedWidth =9525
-                            LayoutCachedHeight =3645
+                            LayoutCachedTop =480
+                            LayoutCachedWidth =10125
+                            LayoutCachedHeight =3675
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -1023,7 +1027,7 @@ Begin Form
                                     Width =2085
                                     FontSize =9
                                     FontWeight =700
-                                    Name ="cmdEnter"
+                                    Name ="btnEnter"
                                     Caption ="&Enter / edit data"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1049,7 +1053,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =1
-                                    Name ="cmdReview"
+                                    Name ="btnReview"
                                     Caption ="B&rowse data"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1064,6 +1068,7 @@ Begin Form
                                     WebImagePaddingTop =2
                                     WebImagePaddingRight =1
                                     WebImagePaddingBottom =1
+                                    Overlaps =1
                                 End
                                 Begin Line
                                     OverlapFlags =87
@@ -1111,8 +1116,8 @@ Begin Form
                                     Width =2100
                                     FontSize =9
                                     FontWeight =700
-                                    TabIndex =3
-                                    Name ="cmd_Locations"
+                                    TabIndex =2
+                                    Name ="btnLocations"
                                     Caption ="Monitoring Plots"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1140,7 +1145,7 @@ Begin Form
                                     Height =360
                                     FontSize =12
                                     FontWeight =700
-                                    TabIndex =4
+                                    TabIndex =3
                                     Name ="cProject"
                                     ControlSource ="Project"
                                     FontName ="Arial"
@@ -1183,9 +1188,9 @@ Begin Form
                                     Width =4320
                                     Height =360
                                     FontSize =12
-                                    TabIndex =5
+                                    TabIndex =4
                                     ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"0\""
-                                    Name ="cUser"
+                                    Name ="cbxUser"
                                     ControlSource ="User_name"
                                     RowSourceType ="Table/Query"
                                     RowSource ="SELECT tlu_Contacts.Contact_ID, [Last_Name] & \"_\" & [First_Name] AS User_name,"
@@ -1229,8 +1234,8 @@ Begin Form
                                     Width =1980
                                     FontSize =9
                                     FontWeight =700
-                                    TabIndex =6
-                                    Name ="cmd_Contacts"
+                                    TabIndex =5
+                                    Name ="btnContacts"
                                     Caption ="Manage Contacts"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1247,20 +1252,55 @@ Begin Form
                                     WebImagePaddingRight =1
                                     WebImagePaddingBottom =1
                                 End
+                                Begin ToggleButton
+                                    OverlapFlags =215
+                                    Left =8580
+                                    Top =540
+                                    Width =1500
+                                    Height =420
+                                    TabIndex =6
+                                    ForeColor =255
+                                    Name ="tglDevMode"
+                                    StatusBarText ="Turn DEV MODE on or off"
+                                    DefaultValue ="False"
+                                    Caption ="DEV MODE OFF"
+                                    ControlTipText ="Turn DEV MODE on or off"
+                                    LeftPadding =60
+                                    RightPadding =75
+                                    BottomPadding =120
+
+                                    LayoutCachedLeft =8580
+                                    LayoutCachedTop =540
+                                    LayoutCachedWidth =10080
+                                    LayoutCachedHeight =960
+                                    UseTheme =1
+                                    Shape =1
+                                    BackColor =9436926
+                                    BorderColor =5880731
+                                    BorderThemeColorIndex =6
+                                    HoverColor =15788753
+                                    PressedColor =9699294
+                                    HoverForeColor =16724787
+                                    PressedForeColor =16724787
+                                    Shadow =-1
+                                    QuickStyle =25
+                                    QuickStyleMask =-561
+                                    WebImagePaddingTop =1
+                                End
                             End
                         End
                         Begin Page
                             OverlapFlags =247
                             Left =135
-                            Top =495
-                            Width =9390
-                            Height =3150
-                            Name ="pag_Utilities"
+                            Top =480
+                            Width =9990
+                            Height =3195
+                            Name ="pgUtilities"
                             Caption ="Utilities"
                             LayoutCachedLeft =135
-                            LayoutCachedTop =495
-                            LayoutCachedWidth =9525
-                            LayoutCachedHeight =3645
+                            LayoutCachedTop =480
+                            LayoutCachedWidth =10125
+                            LayoutCachedHeight =3675
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -1274,7 +1314,7 @@ Begin Form
                                     Width =1980
                                     FontSize =9
                                     FontWeight =700
-                                    Name ="cmdLookups"
+                                    Name ="btnLookups"
                                     Caption ="&Lookup tables"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1303,8 +1343,9 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =1
-                                    Name ="cmdQA"
+                                    Name ="btnQA"
                                     Caption ="&QA checks"
+                                    OnClick ="[Event Procedure]"
                                     FontName ="Arial"
                                     ControlTipText ="Open the data validation tool"
                                     UnicodeAccessKey =81
@@ -1330,7 +1371,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =2
-                                    Name ="cmdDbWindow"
+                                    Name ="btnDbWindow"
                                     Caption ="View &db window"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1358,7 +1399,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =3
-                                    Name ="cmdBackup"
+                                    Name ="btnBackup"
                                     Caption ="&Back up data"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1386,7 +1427,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =4
-                                    Name ="cmdReconnect"
+                                    Name ="btnReconnect"
                                     Caption ="&Connect data tables"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1438,7 +1479,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =5
-                                    Name ="cmd_Birds"
+                                    Name ="btnBirds"
                                     Caption ="Bird Species Info"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1464,7 +1505,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =6
-                                    Name ="cmd_Analysis_Tools"
+                                    Name ="btnAnalysisTools"
                                     Caption ="Analysis/Reivew Tools"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1503,8 +1544,9 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =7
-                                    Name ="cmd_Reports"
+                                    Name ="btnReports"
                                     Caption ="Reports"
+                                    OnClick ="[Event Procedure]"
                                     FontName ="Arial"
 
                                     LayoutCachedLeft =4560
@@ -1521,15 +1563,15 @@ Begin Form
                         Begin Page
                             OverlapFlags =247
                             Left =135
-                            Top =492
-                            Width =9390
-                            Height =3153
-                            Name ="pagDefaults"
+                            Top =480
+                            Width =9990
+                            Height =3188
+                            Name ="pgDefaults"
                             Caption =" Defaults"
                             LayoutCachedLeft =135
-                            LayoutCachedTop =492
-                            LayoutCachedWidth =9525
-                            LayoutCachedHeight =3645
+                            LayoutCachedTop =480
+                            LayoutCachedWidth =10125
+                            LayoutCachedHeight =3668
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -1556,7 +1598,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     ForeColor =0
-                                    Name ="cmdChangeDefaults"
+                                    Name ="btnChangeDefaults"
                                     Caption ="Change"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1598,7 +1640,7 @@ Begin Form
                                     Left =2595
                                     Top =1740
                                     Width =1620
-                                    TabIndex =2
+                                    TabIndex =1
                                     Name ="cPark"
                                     ControlSource ="Park"
                                     FontName ="Arial"
@@ -1637,7 +1679,7 @@ Begin Form
                                     Left =2355
                                     Top =2100
                                     Width =1860
-                                    TabIndex =3
+                                    TabIndex =2
                                     Name ="cDatum"
                                     ControlSource ="Datum"
                                     FontName ="Arial"
@@ -1676,7 +1718,7 @@ Begin Form
                                     Left =2715
                                     Top =2460
                                     Width =1500
-                                    TabIndex =4
+                                    TabIndex =3
                                     Name ="cUTMZone"
                                     ControlSource ="UTM_Zone"
                                     FontName ="Arial"
@@ -1715,7 +1757,7 @@ Begin Form
                                     Left =1155
                                     Top =2820
                                     Width =3060
-                                    TabIndex =5
+                                    TabIndex =4
                                     Name ="cProtocol"
                                     ControlSource ="Protocol_Name"
                                     FontName ="Arial"
@@ -1750,7 +1792,7 @@ Begin Form
                                     Left =4575
                                     Top =750
                                     ColumnWidth =2208
-                                    TabIndex =6
+                                    TabIndex =5
                                     Name ="chkBackupOnStartup"
                                     ControlSource ="Backup_prompt_startup"
                                     StatusBarText ="Whether or not the application prompts for backups upon startup"
@@ -1784,7 +1826,7 @@ Begin Form
                                     Left =4575
                                     Top =1110
                                     ColumnWidth =1908
-                                    TabIndex =7
+                                    TabIndex =6
                                     Name ="chkBackupOnExit"
                                     ControlSource ="Backup_prompt_exit"
                                     StatusBarText ="Whether or not the application prompts for backups upon exiting"
@@ -1817,7 +1859,7 @@ Begin Form
                                     OverlapFlags =247
                                     Left =4575
                                     Top =1472
-                                    TabIndex =8
+                                    TabIndex =7
                                     Name ="chkCompactBEOnExit"
                                     ControlSource ="Compact_be_exit"
                                     StatusBarText ="Whether or not the application compacts the back-end db upon exiting"
@@ -1850,7 +1892,7 @@ Begin Form
                                     OverlapFlags =247
                                     Left =4575
                                     Top =1832
-                                    TabIndex =9
+                                    TabIndex =8
                                     Name ="chkVerifyOnStartup"
                                     ControlSource ="Verify_links_startup"
                                     StatusBarText ="Whether or not the application verifies table connections upon startup"
@@ -1879,20 +1921,110 @@ Begin Form
                                         End
                                     End
                                 End
+                                Begin CommandButton
+                                    OverlapFlags =247
+                                    Left =8280
+                                    Top =480
+                                    Width =1800
+                                    Height =660
+                                    FontSize =11
+                                    TabIndex =9
+                                    ForeColor =0
+                                    Name ="btnManageTemplates"
+                                    Caption ="Manage Templates"
+                                    StatusBarText ="Manage templates"
+                                    OnClick ="[Event Procedure]"
+                                    FontName ="Calibri"
+                                    ControlTipText ="Manage templates"
+                                    LeftPadding =60
+                                    RightPadding =75
+                                    BottomPadding =120
+                                    GridlineColor =10921638
+
+                                    LayoutCachedLeft =8280
+                                    LayoutCachedTop =480
+                                    LayoutCachedWidth =10080
+                                    LayoutCachedHeight =1140
+                                    ForeThemeColorIndex =0
+                                    GridlineThemeColorIndex =1
+                                    GridlineShade =65.0
+                                    UseTheme =1
+                                    Shape =2
+                                    Gradient =12
+                                    BackColor =13020235
+                                    BackThemeColorIndex =8
+                                    BorderColor =13020235
+                                    BorderThemeColorIndex =8
+                                    ThemeFontIndex =1
+                                    HoverColor =13745519
+                                    HoverThemeColorIndex =8
+                                    HoverTint =80.0
+                                    PressedColor =10915381
+                                    PressedThemeColorIndex =8
+                                    PressedShade =80.0
+                                    HoverForeColor =0
+                                    HoverForeThemeColorIndex =0
+                                    PressedForeColor =0
+                                    PressedForeThemeColorIndex =0
+                                    Shadow =-1
+                                    QuickStyle =27
+                                    QuickStyleMask =-1
+                                    WebImagePaddingTop =1
+                                End
+                                Begin ToggleButton
+                                    OverlapFlags =247
+                                    Left =8340
+                                    Top =1380
+                                    Width =1500
+                                    Height =420
+                                    FontWeight =500
+                                    TabIndex =10
+                                    ForeColor =0
+                                    Name ="tglDbType"
+                                    StatusBarText ="Toggle between FOREST and GRASSLAND"
+                                    DefaultValue ="False"
+                                    Caption ="DB TYPE"
+                                    OnClick ="[Event Procedure]"
+                                    ControlTipText ="Toggle between FOREST and GRASSLAND"
+                                    LeftPadding =60
+                                    RightPadding =75
+                                    BottomPadding =120
+
+                                    LayoutCachedLeft =8340
+                                    LayoutCachedTop =1380
+                                    LayoutCachedWidth =9840
+                                    LayoutCachedHeight =1800
+                                    ForeThemeColorIndex =0
+                                    UseTheme =1
+                                    Shape =1
+                                    Gradient =12
+                                    BackColor =5880731
+                                    BackThemeColorIndex =6
+                                    BorderColor =5880731
+                                    BorderThemeColorIndex =6
+                                    HoverColor =15788753
+                                    PressedColor =9699294
+                                    HoverForeColor =16724787
+                                    PressedForeColor =16724787
+                                    Shadow =-1
+                                    QuickStyle =25
+                                    QuickStyleMask =-1
+                                    WebImagePaddingTop =1
+                                End
                             End
                         End
                         Begin Page
                             OverlapFlags =247
                             Left =135
-                            Top =495
-                            Width =9390
-                            Height =3150
-                            Name ="pagAbout"
+                            Top =480
+                            Width =9990
+                            Height =3195
+                            Name ="pgAbout"
                             Caption =" About"
                             LayoutCachedLeft =135
-                            LayoutCachedTop =495
-                            LayoutCachedWidth =9525
-                            LayoutCachedHeight =3645
+                            LayoutCachedTop =480
+                            LayoutCachedWidth =10125
+                            LayoutCachedHeight =3675
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -1906,7 +2038,7 @@ Begin Form
                                     Height =324
                                     FontSize =9
                                     FontWeight =700
-                                    Name ="cmdReleaseHistory"
+                                    Name ="btnReleaseHistory"
                                     Caption ="View release history"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1929,7 +2061,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =1
-                                    Name ="cmdReportBug"
+                                    Name ="btnReportBug"
                                     Caption ="Report a bug"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1952,7 +2084,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =2
-                                    Name ="cmdViewMetadata"
+                                    Name ="btnViewMetadata"
                                     Caption ="View DB Metadata/Purpose"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -2064,6 +2196,7 @@ Begin Form
                                     LayoutCachedHeight =1810
                                 End
                                 Begin Label
+                                    FontUnderline = NotDefault
                                     OverlapFlags =247
                                     Left =555
                                     Top =1860
@@ -2074,11 +2207,57 @@ Begin Form
                                     BackColor =11056034
                                     ForeColor =16711680
                                     Name ="lblAuthorEmail"
+                                    Caption ="leslie_frattaroli@nps.gov"
                                     FontName ="Arial"
+                                    HyperlinkAddress ="mailto:leslie_frattaroli@nps.gov"
                                     LayoutCachedLeft =555
                                     LayoutCachedTop =1860
                                     LayoutCachedWidth =3780
                                     LayoutCachedHeight =2145
+                                End
+                                Begin CommandButton
+                                    OverlapFlags =247
+                                    Left =3900
+                                    Top =3000
+                                    Width =1980
+                                    Height =324
+                                    FontSize =9
+                                    FontWeight =700
+                                    TabIndex =7
+                                    Name ="btnMVT"
+                                    Caption ="SOP Version Admin"
+                                    FontName ="Arial"
+
+                                    LayoutCachedLeft =3900
+                                    LayoutCachedTop =3000
+                                    LayoutCachedWidth =5880
+                                    LayoutCachedHeight =3324
+                                    WebImagePaddingLeft =2
+                                    WebImagePaddingTop =2
+                                    WebImagePaddingRight =1
+                                    WebImagePaddingBottom =1
+                                End
+                                Begin CommandButton
+                                    OverlapFlags =247
+                                    Left =3900
+                                    Top =2340
+                                    Width =1980
+                                    Height =540
+                                    FontSize =9
+                                    FontWeight =700
+                                    TabIndex =8
+                                    Name ="btnHelp"
+                                    Caption ="View db documentation"
+                                    FontName ="Arial"
+
+                                    LayoutCachedLeft =3900
+                                    LayoutCachedTop =2340
+                                    LayoutCachedWidth =5880
+                                    LayoutCachedHeight =2880
+                                    WebImagePaddingLeft =2
+                                    WebImagePaddingTop =2
+                                    WebImagePaddingRight =1
+                                    WebImagePaddingBottom =1
                                 End
                             End
                         End
@@ -2091,7 +2270,7 @@ Begin Form
                     OverlapFlags =85
                     Left =2700
                     Top =3960
-                    Width =6900
+                    Width =7500
                     Height =459
                     TabIndex =1
                     Name ="txtLinkPath"
@@ -2102,7 +2281,7 @@ Begin Form
 
                     LayoutCachedLeft =2700
                     LayoutCachedTop =3960
-                    LayoutCachedWidth =9600
+                    LayoutCachedWidth =10200
                     LayoutCachedHeight =4419
                     Begin
                         Begin Label
@@ -2133,7 +2312,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =2
                     ForeColor =255
-                    Name ="cmdExit"
+                    Name ="btnExit"
                     Caption ="Exit"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -2150,6 +2329,54 @@ Begin Form
                     WebImagePaddingTop =2
                     WebImagePaddingRight =1
                     WebImagePaddingBottom =1
+                End
+                Begin CommandButton
+                    OverlapFlags =215
+                    Left =8640
+                    Top =60
+                    Height =299
+                    FontSize =11
+                    TabIndex =3
+                    ForeColor =15921906
+                    Name ="btnAdmin"
+                    Caption ="Admin"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Calibri"
+                    ControlTipText ="Go to administration settings"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =8640
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =10080
+                    LayoutCachedHeight =359
+                    ForeThemeColorIndex =1
+                    ForeShade =95.0
+                    GridlineThemeColorIndex =1
+                    GridlineShade =65.0
+                    UseTheme =1
+                    Shape =1
+                    BackColor =4144959
+                    OldBorderStyle =0
+                    BorderColor =14136213
+                    BorderThemeColorIndex =4
+                    BorderTint =60.0
+                    ThemeFontIndex =1
+                    HoverColor =9699294
+                    HoverTint =40.0
+                    PressedColor =9592887
+                    PressedThemeColorIndex =4
+                    PressedShade =75.0
+                    HoverForeColor =4210752
+                    HoverForeThemeColorIndex =0
+                    HoverForeTint =75.0
+                    PressedForeColor =4210752
+                    PressedForeThemeColorIndex =0
+                    PressedForeTint =75.0
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
             End
         End
@@ -2168,48 +2395,95 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-Private Sub cmdViewMetadata_Click()
-
-If Not (Not IsNothing(fxnGetLocalMetadataFileName) Or fxnNPSDataStoreMetadataExists Or fxnDBPurposeExists) Then
-    MsgBox "No metadata or purpose was entered for this database."
-Else
-    DoCmd.OpenForm "frm_Metadata_display", , , , acFormReadOnly, acDialog
-End If
-End Sub
-
-Private Sub cUser_AfterUpdate()
-Me!cUser.Requery
-If Me.Dirty Then
-    Me.Dirty = False
-End If
-
-fxnCheckDefaults cUser
-
-End Sub
-
-Private Sub cUser_GotFocus()
-Me!cUser.Requery
-End Sub
-
-Private Sub Form_Current()
-fxnCheckDefaults cUser
-End Sub
-
 ' =================================
-' FORM NAME:    frm_Switchboard
-' Description:  Standard module - main screen of the user interface, viewed at startup
-' Data source:  tsys_App_Defaults
-' Data access:  edit only, no additions, moving between records or deletions
-' Pages:        pagMain, pagDefaults, pagAbout
-' Functions:    none
-' References:   fxnMakeBackup, fxnFileExists, fxnDeleteFile
+' Form:         frm_Switchboard
+' Level:        Application form
+' Version:      1.04
+' Basis:        Switchboard form
+'
+' Description:  Main switchboard form object related properties, events, functions & procedures for UI display
+'
 ' Source/date:  John R. Boetsch, May 24, 2006
-' Revisions:    Simon Kingston, Sept. 2006 - added lookup for release information to look at tsys_App_Releases
+'               Simon Kingston, Sept. 2006
+'               Mark Lehman/Geoff Sanders, unknown
+' Adapted:      Bonnie Campbell, October 1, 2018
+' References:   -
+' Revisions:
+'               JRB - 5/24/2006 - 1.00 - initial version
+'               SK - 9/x/2006   - 1.01 - added lookup for release information to look at tsys_App_Releases
+'               ML/GS - unknown - 1.02 - NCRN version
+'               BLC - 10/1/2018 - 1.03 - added documentation, Admin button functionality, reorganized code
+'               BLC - 10/3/2018 - 1.04 - added ToggleDevMode, tglDevMode_Click
+'                                        rename cmd > btn, cx > cbx, txt > tbx, pag > pg
 ' =================================
 
-Private Sub Form_Open(Cancel As Integer)
-    On Error GoTo Err_Handler
+'---------------------
+' Declarations
+'---------------------
+Public DB_TYPE As String
 
+'---------------------
+' Properties
+'---------------------
+
+'---------------------
+' Events
+'---------------------
+
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  John R. Boetsch, May 24, 2006
+'               Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+'               BLC - 10/3/2018 - added header attributes
+' ---------------------------------
+Private Sub Form_Open(Cancel As Integer)
+On Error GoTo Err_Handler
+    
+    'identify sub-protocol
+    APP_SUBSET = "Grassland"
+    
+    'identify if database is for distribution
+    DB_DISTRIBUTED = False
+    
+    'set based on DB_DISTRIBUTED
+    btnAdmin.Visible = Not DB_DISTRIBUTED
+    tglDevMode.Visible = Not DB_DISTRIBUTED
+    
+    'let user know its loading
+    DoCmd.Hourglass True
+    
+    'initialize app (mod_App_UI)
+    'Initialize
+    
+    'prepare interface
+    Me.Detail.BackColor = lngDullGreen
+    Me.Detail.AlternateBackColor = lngDullGreen
+    
+    'Main
+    Me.lblTitle.Caption = IIf(TempVars("UserAccessLevel") = "admin", _
+                            "Administrator", _
+                            Nz(StrConv(TempVars("UserAccessLevel"), vbProperCase), _
+                            "Data Entry"))
+    lblTitle.ForeColor = lngWhite
+    
+    'set app user
+    lblTitle.ForeColor = lngWhite
+    'lblAppUser.Caption = "(" & TempVars("AppUsername") & ")"
+    'lblAppUser.ForeColor = lngLtBlue
+    
+    'Admin --> filter actions when form opens (disable form buttons based on TempVars("AccessLevel")
+    btnAdmin.HoverColor = LINK_HIGHLIGHT_BKGD
+        
     Dim strCaption As String
 
     ' Set the application font to more closely match the forms.
@@ -2222,9 +2496,11 @@ Private Sub Form_Open(Cancel As Integer)
         & Me!Release_ID & "'"), "")
     Me.Caption = strCaption
 
-Exit_Procedure:
+Exit_Handler:
+    'finish up
+    DoCmd.Hourglass False
     Exit Sub
-
+    
 Err_Handler:
     Select Case Err.Number
         Case 3078   ' Can't find the system table
@@ -2239,15 +2515,29 @@ Err_Handler:
             MsgBox "Error #" & Err.Number & ":  Missing system table info. Please notify" & _
                 vbCrLf & "the database administrator before using this application.", _
                 vbCritical, "System table error (tsys_App_Releases)"
-        Case Else
-            MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_Open[frm_Switchboard form])"
     End Select
-    Resume Exit_Procedure
-
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Load
+' Description:  form loading actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling, lbl_Db_Title > lblTitle
+' ---------------------------------
 Private Sub Form_Load()
-    On Error GoTo Err_Handler
+On Error GoTo Err_Handler
 
     Dim strLinkPath As String
     Dim strSQL As String
@@ -2284,7 +2574,8 @@ Private Sub Form_Load()
             varAuthorPhone = !Author_phone
             varAuthorEmail = !Author_email
             varAuthorOrgName = !Author_org_name
-            varAppTitle = !Database_title
+            varAppTitle = varAuthorOrg & " " & APP_SUBSET & " " & Right(!Database_title, Len(!Database_title) - 12)
+            SetTempVar "AppTitle", varAppTitle
         End If
     End With
     
@@ -2298,7 +2589,7 @@ Private Sub Form_Load()
     Me.Caption = varAppTitle
     Me!lblNetwork.Caption = varAuthorOrgName & vbCrLf & "Inventory and Monitoring Program"
     
-    Me!lbl_DB_Title.Caption = varAppTitle
+    Me!lblTitle.Caption = TempVars("AppTitle") 'varAppTitle
 
     If IsNothing(varAuthorEmail) Then
         varAuthorEmail = "Author email unknown"
@@ -2317,33 +2608,115 @@ Private Sub Form_Load()
     Me!txtAuthorPhone = varAuthorPhone
     Me!lblAuthorEmail.Caption = varAuthorEmail
 
-Exit_Procedure:
+Exit_Handler:
     On Error Resume Next
     rstReleaseInfo.Close
     Set rstReleaseInfo = Nothing
     Exit Sub
-
+    
 Err_Handler:
     Select Case Err.Number
         Case 3078   ' Can't find the system table
             MsgBox "Error #" & Err.Number & ":  Missing a system table. Please notify" & _
                 vbCrLf & "the database administrator before using this application.", _
-                vbCritical, "System table error (tsys_Link_Files)"
+                vbCritical, "System table error (tsys_Link_Files)" & _
+                "(#" & Err.Number & " - Form_Load[frm_Switchboard form])"
         Case 2001   ' Field name in DLookup improperly specified
             MsgBox "Error #" & Err.Number & ":  System table field not found." & _
                 vbCrLf & "Please notify the database administrator before using " & _
-                "this application.", vbCritical, "System table error (tsys_Link_Files)"
+                "this application.", vbCritical, "System table error (tsys_Link_Files)" & _
+                "(#" & Err.Number & " - Form_Load[frm_Switchboard form])"
         Case 94    ' Missing information in the systems table
             MsgBox "Error #" & Err.Number & ":  Missing system table info. Please notify" & _
                 vbCrLf & "the database administrator before using this application.", _
-                vbCritical, "System table error (tsys_Link_Files)"
-        Case Else
-            MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
+                vbCritical, "System table error (tsys_Link_Files)" & _
+                "(#" & Err.Number & " - Form_Load[frm_Switchboard form])"
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_Load[frm_Switchboard form])"
     End Select
-    Resume Exit_Procedure
-
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Current
+' Description:  Form actions when form the current form
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub Form_Current()
+On Error GoTo Err_Handler
+
+    fxnCheckDefaults cbxUser
+
+    Debug.Print APP_SUBSET
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_Current[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          Form_Activate
+' Description:  form actions when open form gets focus
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Adapted:      -
+' Revisions:
+'   BLC - 7/28/2017 - initial version
+'   BLC - 7/31/2017 - revised to ensure Dev Mode toggle button updates w/ current state
+' ---------------------------------
+Private Sub Form_Activate()
+On Error GoTo Err_Handler
+
+    'set toggle based on current value
+    Me.tglDevMode.Value = DEV_MODE
+    
+    ToggleDevMode
+
+Exit_Handler:
+    Exit Sub
+Err_Handler:
+    Select Case Err.Number
+        Case Else
+          MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_Activate[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          lblNPS_DblClick
+' Description:  label double click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
 Private Sub lblNPS_DblClick(Cancel As Integer)
     On Error GoTo Err_Handler
 
@@ -2351,16 +2724,33 @@ Private Sub lblNPS_DblClick(Cancel As Integer)
     DoCmd.Hourglass True
     Application.FollowHyperlink "http://www.nps.gov", , True
 
-Exit_Procedure:
+Exit_Handler:
     DoCmd.Hourglass False
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - lblNPS_DblClick[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          imgNPS_DblClick
+' Description:  image double click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
 Private Sub imgNPS_DblClick(Cancel As Integer)
     On Error GoTo Err_Handler
 
@@ -2368,18 +2758,35 @@ Private Sub imgNPS_DblClick(Cancel As Integer)
     DoCmd.Hourglass True
     Application.FollowHyperlink "http://www.nps.gov", , True
 
-Exit_Procedure:
+Exit_Handler:
     DoCmd.Hourglass False
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - imgNPS_DblClick[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          lblNetwork_DblClick
+' Description:  label double click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
 Private Sub lblNetwork_DblClick(Cancel As Integer)
-    On Error GoTo Err_Handler
+On Error GoTo Err_Handler
 
     Dim varAuthorUnitCode As Variant
     Dim varLastReleaseDate As Variant
@@ -2400,137 +2807,410 @@ Private Sub lblNetwork_DblClick(Cancel As Integer)
         End If
     End If
 
-Exit_Procedure:
+Exit_Handler:
     DoCmd.Hourglass False
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - lblNetwork_DblClick[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnAdmin_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Bonnie Campbell, October 3, 2018
+' Adapted:      -
+' Revisions:
+' Revisions:    BLC - 10/3/2018 - initial version
+' ---------------------------------
+Private Sub btnAdmin_Click()
+On Error GoTo Err_Handler
+
+    DoCmd.OpenForm "DbAdmin", acNormal, , , acFormEdit, acWindowNormal
+    
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnAdmin_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          tglDevMode_Click
+' Description:  Sets value for DEV_MODE true or false based on toggle
+'                   Up = True, Down = False
+' Assumptions:  DEV_MODE sets visibility of ID controls
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Adapted:      -
+' Revisions:
+'   BLC - 10/3/2018 - initial version (from NCPN tools)
+' ---------------------------------
+Private Sub tglDevMode_Click()
+On Error GoTo Err_Handler
+
+    ToggleDevMode
+ 
+Exit_Handler:
+    DoCmd.Hourglass False
+    Exit Sub
+Err_Handler:
+    Select Case Err.Number
+        Case Else
+          MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - tglDevMode_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          tglDevMode_Click
+' Description:  Sets value for DB_TYPE forest or grassland based on toggle
+'                   Up = Forest, Down = Grassland
+' Assumptions:  DB_TYPE sets grassland or forest controls
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Adapted:      -
+' Revisions:
+'   BLC - 3/3/2019 - initial version
+' ---------------------------------
+Private Sub tglDbType_Click()
+On Error GoTo Err_Handler
+
+    ToggleDbType
+ 
+Exit_Handler:
+    DoCmd.Hourglass False
+    Exit Sub
+Err_Handler:
+    Select Case Err.Number
+        Case Else
+          MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - tglDbType_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          tbxLinkPath_DblClick
+' Description:  textbox double click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
 Private Sub txtLinkPath_DblClick(Cancel As Integer)
     On Error GoTo Err_Handler
 
     ' Upon clicking the current link path, reconnect back end tables
     DoCmd.OpenForm "frm_Connect_Tables"
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - tbxLinkPath_DblClick[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Sub cmdExit_Click()
-
-'Updated: Simon Kingston, 2/26/2007 - Set up to compact multiple back-end files
-Dim booLinked As Boolean
-Dim rstLinkedFiles As DAO.Recordset
-Dim strOrigDbName As String
-Dim strNewDbName As String
-Dim strSuffix As String
-Dim intCount As Integer
-Dim booSuccess As Boolean
-
+' ---------------------------------
+' Sub:          btnExit_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Simon Kingston, February 26, 2007
+'               Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    SK - 2/26/2007 - Set up to compact multiple back-end files
+'               ML/GS - unknown - initial version NCRN
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnExit_Click()
 On Error GoTo Err_Handler
-
-booLinked = fxnVerifyLinks()
-
-' Prompt for backups, depending on system default settings
-If booLinked And Me!chkBackupOnExit Then fxnMakeBackup
-Me!Activity = Null
-Me!User_name = Null
-' Compact and repair back-end databases prior to exit, depending on
-'   default settings and on whether there is a valid link to the database
-If booLinked And Me!chkCompactBEOnExit And IsNull(Me!txtLinkPath) = False Then
+    Dim booLinked As Boolean
+    Dim rstLinkedFiles As DAO.Recordset
+    Dim strOrigDbName As String
+    Dim strNewDbName As String
+    Dim strSuffix As String
+    Dim intCount As Integer
+    Dim booSuccess As Boolean
     
-    Set rstLinkedFiles = CurrentDb.OpenRecordset("SELECT Link_file_path FROM tsys_Link_Files WHERE Backup;", dbOpenForwardOnly)
-
-    Do Until rstLinkedFiles.EOF
-        strOrigDbName = rstLinkedFiles!Link_file_path
-        ' Don't do anything if the link path string is empty or isn't an mdb file
-        If Right(strOrigDbName, 4) = ".mdb" Then
-            intCount = 0
-            ' If needed, loop through alternate temporary names until an unused name is found
-            Do
-                intCount = intCount + 1
-                strSuffix = "_" & CStr(intCount) & ".mdb"
-                strNewDbName = Left(strOrigDbName, Len(strOrigDbName) - 4) & strSuffix
-            Loop Until fxnFileExists(strNewDbName) = False
-            
-            booSuccess = True 'initialize the success flag
-            DBEngine.CompactDatabase strOrigDbName, strNewDbName
-            'if compaction was successful, then attempt to delete original
-            If booSuccess Then
-                ' If successful deleting the original, uncompacted file the rename the compacted file
-                '   to the original name
-                If fxnDeleteFile(strOrigDbName) Then Name strNewDbName As strOrigDbName
-            End If
-        End If
-        
-        rstLinkedFiles.MoveNext
-    Loop
-End If
-
-' Compact the front-end db upon closing if the database is connected and
-'   if the verify tables on startup is not set (otherwise slower performance)
-If booLinked And Me!chkVerifyOnStartup = False Then
-    CommandBars("Menu Bar").Controls("Tools"). _
-        Controls("Database utilities"). _
-        Controls("Compact and repair database...").accDoDefaultAction
-End If
-
-
-If Me!User_name <> "" Or Not IsNull(Me!User_name) Then
+    booLinked = fxnVerifyLinks()
     
+    ' Prompt for backups, depending on system default settings
+    If booLinked And Me!chkBackupOnExit Then fxnMakeBackup
+    Me!Activity = Null
     Me!User_name = Null
- 
-End If
+    ' Compact and repair back-end databases prior to exit, depending on
+    '   default settings and on whether there is a valid link to the database
+    If booLinked And Me!chkCompactBEOnExit And IsNull(Me!txtLinkPath) = False Then
+        
+        Set rstLinkedFiles = CurrentDb.OpenRecordset("SELECT Link_file_path FROM tsys_Link_Files WHERE Backup;", dbOpenForwardOnly)
     
-'MsgBox Me!User_name
-'MsgBox "TEST"
-' Close the application
+        Do Until rstLinkedFiles.EOF
+            strOrigDbName = rstLinkedFiles!Link_file_path
+            ' Don't do anything if the link path string is empty or isn't an mdb file
+            If Right(strOrigDbName, 4) = ".mdb" Then
+                intCount = 0
+                ' If needed, loop through alternate temporary names until an unused name is found
+                Do
+                    intCount = intCount + 1
+                    strSuffix = "_" & CStr(intCount) & ".mdb"
+                    strNewDbName = Left(strOrigDbName, Len(strOrigDbName) - 4) & strSuffix
+                Loop Until fxnFileExists(strNewDbName) = False
+                
+                booSuccess = True 'initialize the success flag
+                DBEngine.CompactDatabase strOrigDbName, strNewDbName
+                'if compaction was successful, then attempt to delete original
+                If booSuccess Then
+                    ' If successful deleting the original, uncompacted file the rename the compacted file
+                    '   to the original name
+                    If fxnDeleteFile(strOrigDbName) Then Name strNewDbName As strOrigDbName
+                End If
+            End If
+            
+            rstLinkedFiles.MoveNext
+        Loop
+    End If
+    
+    ' Compact the front-end db upon closing if the database is connected and
+    '   if the verify tables on startup is not set (otherwise slower performance)
+    If booLinked And Me!chkVerifyOnStartup = False Then
+        CommandBars("Menu Bar").Controls("Tools"). _
+            Controls("Database utilities"). _
+            Controls("Compact and repair database...").accDoDefaultAction
+    End If
+    
+    
+    If Me!User_name <> "" Or Not IsNull(Me!User_name) Then
+        
+        Me!User_name = Null
+     
+    End If
+        
+    'MsgBox Me!User_name
+    'MsgBox "TEST"
+    ' Close the application
+    
+    DoCmd.Quit acQuitSaveNone
 
-DoCmd.Quit acQuitSaveNone
-
-
-Exit_Procedure:
+Exit_Handler:
     On Error Resume Next
     rstLinkedFiles.Close
     Set rstLinkedFiles = Nothing
     Exit Sub
-
+    
 Err_Handler:
     booSuccess = False
     Select Case Err.Number
-        Case 3356, 70
+      Case 3356, 70
             ' The back-end database is already open when trying to compact ...
             Me!Activity = Null
             Me!User_name = Null
             
             DoCmd.Quit acQuitSaveNone
             Resume Next
-        Case Else
-            MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-                "Error encountered exiting the main menu"
-            Resume Exit_Procedure
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_Open[frm_Switchboard form])"
     End Select
-
+    Resume Exit_Handler
 End Sub
 
 ' =================================
-' PAGE NAME:    Main Menu (pagMain)
+' ---------  Tab Pages ------------
+' =================================
+
+' =================================
+' PAGE NAME:    Main Menu (pgMain)
 ' Description:  list of common database functions
 ' Unbound ctls: various command buttons for opening other forms
 ' Subforms:     none
 ' =================================
 
-Private Sub cmdEnter_Click()
-    On Error GoTo Err_Handler
+' ---------------------------------
+' Sub:          pgMain_Click
+' Description:  tab click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Bonnie Campbell, March 3, 2019
+' Adapted:      -
+' Revisions:
+' Revisions:    BLC - 3/3/2019 - initial version
+' ---------------------------------
+Private Sub pgMain_Click()
+On Error GoTo Err_Handler
+
+    Me.lblTitle.Caption = "NCRN " & APP_SUBSET & " Bird Database"
+    Me.Form.Caption = lblTitle.Caption & " - " & Year(Now)
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - pgMain_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          cbxUser_GotFocus
+' Description:  combobox got focus actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub cbxUser_GotFocus()
+On Error GoTo Err_Handler
+    
+    Me!cbxUser.Requery
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - cbxUser_GotFocus[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          cbxUser_AfterUpdate
+' Description:  after update actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub cbxUser_AfterUpdate()
+On Error GoTo Err_Handler
+    
+    Me!cbxUser.Requery
+    If Me.Dirty Then
+        Me.Dirty = False
+    End If
+    
+    fxnCheckDefaults cbxUser
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - cbxUser_AfterUpdate[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnContacts_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnContacts_Click()
+On Error GoTo Err_Handler
+
+    Dim stDocName As String
+    Dim stLinkCriteria As String
+
+    stDocName = "frm_Contacts"
+    DoCmd.OpenForm stDocName, , , stLinkCriteria
+   
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnContacts_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnEnter_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnEnter_Click()
+On Error GoTo Err_Handler
+
     Dim varOpenArgs As Variant
     Dim rst As DAO.Recordset
     Set rst = Me.Recordset
@@ -2539,7 +3219,7 @@ Private Sub cmdEnter_Click()
         If fxnVerifyUser(rst) Then
             Me!Activity = "enter"
            
-            varOpenArgs = Me!cUser
+            varOpenArgs = Me!cbxUser
             
             DoCmd.Close , , acSaveNo
           '
@@ -2550,24 +3230,39 @@ Private Sub cmdEnter_Click()
         Else
              varOpenArgs = "5"
              DoCmd.OpenForm "frm_Set_Defaults", , , , , , varOpenArgs
-             
-                                  
         End If
         
     Else
         MsgBox "The database must be connected first", vbOKOnly, "Data Tables Not Connected"
     End If
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnEnter_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Sub cmdReview_Click()
+' ---------------------------------
+' Sub:          btnReview_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnReview_Click()
     On Error GoTo Err_Handler
 
     ' Proceed to review and edit data if the database is connected
@@ -2580,17 +3275,247 @@ Private Sub cmdReview_Click()
         MsgBox "The database must be connected first", vbOKOnly, "Data Tables Not Connected"
     End If
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnReview_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Sub cmdQA_Click()
-    On Error GoTo Err_Handler
+' ---------------------------------
+' Sub:          btnLocations_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnLocations_Click()
+On Error GoTo Err_Handler
+
+    Dim stDocName As String
+    Dim stLinkCriteria As String
+
+    stDocName = "frm_Locations"
+    DoCmd.OpenForm stDocName, , , stLinkCriteria
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnLocations_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' =================================
+' PAGE NAME:    Utilities (pgUtilities)
+' Description:  utility functions
+' Unbound ctls: various buttons for opening other forms
+' Subforms:     none
+' =================================
+
+' ---------------------------------
+' Sub:          btnAnalysisTools_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnAnalysisTools_Click()
+On Error GoTo Err_Handler
+
+    Dim stDocName As String
+    Dim stLinkCriteria As String
+
+    stDocName = "frm_Review_Analysis_Tools"
+    DoCmd.OpenForm stDocName, , , stLinkCriteria
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnAnalysisTools_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnBirds_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnBirds_Click()
+On Error GoTo Err_Handler
+
+    Dim stDocName As String
+    Dim stLinkCriteria As String
+
+    stDocName = "frm_Bird_Details"
+    DoCmd.OpenForm stDocName, , , stLinkCriteria
+   
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnBirds_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnLookups_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnLookups_Click()
+On Error GoTo Err_Handler
+
+    ' Review and edit lookup tables if the database is connected
+    If fxnVerifyLinks() = False Then
+        MsgBox "The database must be connected first", vbOKOnly, "Data Tables Not Connected"
+    Else
+        Me!Activity = "review"
+        DoCmd.OpenForm "frm_Lookups"
+    End If
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnLookups_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnDbWindow_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnDbWindow_Click()
+On Error GoTo Err_Handler
+
+    ' Show the database window.  To re-hide: DoCmd.RunCommand acCmdWindowHide
+    DoCmd.SelectObject acForm, "", True
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnDbWindow_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnReconnect_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnReconnect_Click()
+On Error GoTo Err_Handler
+
+    ' Reconnect back end tables
+    DoCmd.OpenForm "frm_Connect_Tables"
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnReconnect_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnQA_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnQA_Click()
+On Error GoTo Err_Handler
 
     ' Perform data validation if the database is connected
     If fxnVerifyLinks() = False Then
@@ -2598,9 +3523,9 @@ Private Sub cmdQA_Click()
     Else
         Me!Activity = "validate"
         ' Make sure the user name isn't null
-        If IsNull(Me!cUser) = False Then
+        If IsNull(Me!cbxUser) = False Then
             ' Prompt the user to confirm the current user name
-            If MsgBox("Current user:  " & Me!cUser, vbYesNo, "Please verify user name") = vbYes Then
+            If MsgBox("Current user:  " & Me!cbxUser, vbYesNo, "Please verify user name") = vbYes Then
                 DoCmd.OpenForm "frm_QA_Tool", , , , , , 3
             Else    ' Open the defaults window to change user
                 DoCmd.Close , , acSaveNo
@@ -2612,52 +3537,34 @@ Private Sub cmdQA_Click()
         End If
     End If
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnQA_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Sub cmdLookups_Click()
-    On Error GoTo Err_Handler
-
-    ' Review and edit lookup tables if the database is connected
-    If fxnVerifyLinks() = False Then
-        MsgBox "The database must be connected first", vbOKOnly, "Data Tables Not Connected"
-    Else
-        Me!Activity = "review"
-        DoCmd.OpenForm "frm_Lookups"
-    End If
-
-Exit_Procedure:
-    Exit Sub
-
-Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
-End Sub
-
-Private Sub cmdDbWindow_Click()
-    On Error GoTo Err_Handler
-
-    ' Show the database window.  To re-hide: DoCmd.RunCommand acCmdWindowHide
-    DoCmd.SelectObject acForm, "", True
-
-Exit_Procedure:
-    Exit Sub
-
-Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
-End Sub
-
-Private Sub cmdBackup_Click()
-    On Error GoTo Err_Handler
+' ---------------------------------
+' Sub:          btnBackup_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnBackup_Click()
+On Error GoTo Err_Handler
 
     ' Start the database backup function
     If fxnVerifyLinks() Then
@@ -2667,28 +3574,16 @@ Private Sub cmdBackup_Click()
             vbExclamation, "Data Tables Not Connected"
     End If
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
-End Sub
-
-Private Sub cmdReconnect_Click()
-    On Error GoTo Err_Handler
-
-    ' Reconnect back end tables
-    DoCmd.OpenForm "frm_Connect_Tables"
-
-Exit_Procedure:
-    Exit Sub
-
-Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnBackup_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
 ' =================================
@@ -2699,8 +3594,22 @@ End Sub
 ' Subforms:     none
 ' =================================
 
-Private Sub cmdChangeDefaults_Click()
-    On Error GoTo Err_Handler
+' ---------------------------------
+' Sub:          btnChangeDefaults_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnChangeDefaults_Click()
+On Error GoTo Err_Handler
 
     ' Perform data validation if the database is connected
     If fxnVerifyLinks() = False Then
@@ -2713,39 +3622,72 @@ Private Sub cmdChangeDefaults_Click()
         DoCmd.OpenForm "frm_Set_Defaults", , , , , , 4
     End If
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnChangeDefaults_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
 ' =================================
-' PAGE NAME:    Database Information (pagAbout)
+' PAGE NAME:    Database Information (pgAbout)
 ' Description:  database development and release information
 ' Unbound ctls: cmdReleaseHistory, cmdReportBug
 ' Subforms:     none
 ' =================================
-
-Private Sub cmdReleaseHistory_Click()
-    On Error GoTo Err_Handler
+' ---------------------------------
+' Sub:          btnReleaseHistory_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnReleaseHistory_Click()
+On Error GoTo Err_Handler
 
     ' View the release history form
     DoCmd.OpenForm "frm_App_Releases", , , , acFormReadOnly
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnReleaseHistory_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Sub cmdReportBug_Click()
-    On Error GoTo Err_Handler
+' ---------------------------------
+' Sub:          btnReportBug_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnReportBug_Click()
+On Error GoTo Err_Handler
 
     Dim strMessage As String
     ' Report an application bug - used to open the subform but better to track this info
@@ -2759,98 +3701,226 @@ Private Sub cmdReportBug_Click()
     strMessage = strMessage & vbTab & "- screen capture of any error messages"
     MsgBox strMessage, , "Report a bug"
 
-Exit_Procedure:
+Exit_Handler:
     Exit Sub
-
+    
 Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnReportBug_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
+
+' ---------------------------------
+' Sub:          btnViewMetadata_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
+Private Sub btnViewMetadata_Click()
+On Error GoTo Err_Handler
+
+    If Not (Not IsNothing(fxnGetLocalMetadataFileName) Or fxnNPSDataStoreMetadataExists Or fxnDBPurposeExists) Then
+        MsgBox "No metadata or purpose was entered for this database."
+    Else
+        DoCmd.OpenForm "frm_Metadata_display", , , , acFormReadOnly, acDialog
+    End If
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnViewMetadata_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          btnRoutes_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, October 1, 2018
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 10/1/2018 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Routes_Click()
-On Error GoTo Err_cmd_Routes_Click
+On Error GoTo Err_Handler
 
     Dim stDocName As String
     Dim stLinkCriteria As String
 
     stDocName = "frm_Sites"
     DoCmd.OpenForm stDocName, , , stLinkCriteria
-  
 
-Exit_cmd_Routes_Click:
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Routes_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Routes_Click
     
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnRoutes_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Sub cmd_Birds_Click()
-On Error GoTo Err_cmd_Birds_Click
+'---------------------
+' Methods
+'---------------------
 
-    Dim stDocName As String
-    Dim stLinkCriteria As String
+' ---------------------------------
+' Sub:          ToggleDevMode
+' Description:  Sets value for DEV_MODE true or false based on toggle
+'                   Up = True, Down = False
+' Assumptions:  DEV_MODE sets visibility of ID controls
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Adapted:      -
+' Revisions:
+'   BLC - 7/31/2017 - initial version
+' ---------------------------------
+Private Sub ToggleDevMode()
+On Error GoTo Err_Handler
 
-    stDocName = "frm_Bird_Details"
-    DoCmd.OpenForm stDocName, , , stLinkCriteria
-
-Exit_cmd_Birds_Click:
-    Exit Sub
-
-Err_cmd_Birds_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Birds_Click
+    'set global based on toggle
+    If Me!tglDevMode = True Then
+        'true = up
+        DEV_MODE = True
+        
+        With Me.tglDevMode
+            .Caption = "DEV MODE ON"
+            .BackColor = lngLtLime
+            .FontBold = True
+            .ForeColor = lngBlue
+        End With
+    Else
+        'false = down
+        DEV_MODE = False
     
+        With Me.tglDevMode
+            .Caption = "DEV MODE OFF"
+            .BackColor = lngLtrYellow
+            .FontBold = False
+            .ForeColor = lngRed
+        End With
+    End If
+ 
+Me.Refresh
+ 
+Exit_Handler:
+    DoCmd.Hourglass False
+    Exit Sub
+Err_Handler:
+    Select Case Err.Number
+        Case Else
+          MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ToggleDevMode[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
-Private Sub cmd_Contacts_Click()
-On Error GoTo Err_cmd_Contacts_Click
 
-    Dim stDocName As String
-    Dim stLinkCriteria As String
+' ---------------------------------
+' Sub:          ToggleDbType
+' Description:  Sets value for DB_TYPE true or false based on toggle
+'                   Up = True, Down = False
+' Assumptions:  DEV_MODE sets visibility of ID controls
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Adapted:      -
+' Revisions:
+'   BLC - 7/31/2017 - initial version
+' ---------------------------------
+Private Sub ToggleDbType()
+On Error GoTo Err_Handler
 
-    stDocName = "frm_Contacts"
-    DoCmd.OpenForm stDocName, , , stLinkCriteria
-
-Exit_cmd_Contacts_Click:
-    Exit Sub
-
-Err_cmd_Contacts_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Contacts_Click
+    'set global based on toggle
+    If Me!tglDbType = True Then
+        'true = up
+        APP_SUBSET = "Forest"
+        
+        With Me.tglDbType
+            .Caption = "FOREST"
+            .BackColor = lngLtLime
+            .FontBold = True
+            .ForeColor = lngBlue
+        End With
+    Else
+        'false = down
+        APP_SUBSET = "Grassland"
     
+        With Me.tglDbType
+            .Caption = "GRASSLAND"
+            .BackColor = lngLtrYellow
+            .FontBold = True
+            .ForeColor = lngBlue
+        End With
+    End If
+ 
+    'update titles
+    Me.lblTitle.Caption = "NCRN " & APP_SUBSET & " Bird Monitoring Database"
+    Me.Form.Caption = lblTitle.Caption & " - " & Year(Now)
+ 
+Exit_Handler:
+    DoCmd.Hourglass False
+    Exit Sub
+Err_Handler:
+    Select Case Err.Number
+        Case Else
+          MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ToggleDbType[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub
-Private Sub cmd_Analysis_Tools_Click()
-On Error GoTo Err_cmd_Analysis_Tools_Click
 
-    Dim stDocName As String
-    Dim stLinkCriteria As String
+' ---------------------------------
+' Sub:          btnManageTemplates_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Bonnie Campbell, March 3, 2019
+' Adapted:      -
+' Revisions:
+' Revisions:    BLC - 3/3/2019 - initial version
+' ---------------------------------
+Private Sub btnManageTemplates_Click()
+On Error GoTo Err_Handler
 
-    stDocName = "frm_Review_Analysis_Tools"
-    DoCmd.OpenForm stDocName, , , stLinkCriteria
+    DoCmd.OpenForm "TemplateList", acNormal
 
-Exit_cmd_Analysis_Tools_Click:
+Exit_Handler:
+    DoCmd.Hourglass False
     Exit Sub
-
-Err_cmd_Analysis_Tools_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Analysis_Tools_Click
-    
-End Sub
-Private Sub cmd_Locations_Click()
-On Error GoTo Err_cmd_Locations_Click
-
-    Dim stDocName As String
-    Dim stLinkCriteria As String
-
-    stDocName = "frm_Locations"
-    DoCmd.OpenForm stDocName, , , stLinkCriteria
-
-Exit_cmd_Locations_Click:
-    Exit Sub
-
-Err_cmd_Locations_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Locations_Click
-    
+Err_Handler:
+    Select Case Err.Number
+        Case Else
+          MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnManageTemplates_Click[frm_Switchboard form])"
+    End Select
+    Resume Exit_Handler
 End Sub

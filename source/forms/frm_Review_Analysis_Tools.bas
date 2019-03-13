@@ -15,10 +15,9 @@ Begin Form
     Width =13260
     DatasheetFontHeight =11
     ItemSuffix =171
-    Left =6540
-    Top =555
-    Right =20055
-    Bottom =8655
+    Left =615
+    Right =12735
+    Bottom =7740
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0xd553be5a1451e340
@@ -229,7 +228,7 @@ Begin Form
                                     Top =1680
                                     Width =2280
                                     Height =315
-                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"\";\"10\";\"100\""
+                                    ColumnInfo ="\"Event ID\";\"\";\"\";\"\";\"\";\"\";\"\";\"ddddd\";\"\";\"\";\"10\";\"100\""
                                     Name ="cbo_Select_Event"
                                     RowSourceType ="Table/Query"
                                     RowSource ="SELECT tbl_Events.Event_ID, tbl_Locations.Plot_Name, tbl_Locations.GRTS_Order, t"
@@ -237,6 +236,7 @@ Begin Form
                                         "_Locations.Location_ID=tbl_Events.Location_ID ORDER BY tbl_Locations.GRTS_Order;"
                                         " "
                                     ColumnWidths ="0;1440;720;1080;360"
+                                    AfterUpdate ="[Event Procedure]"
                                     LayoutCachedLeft =1800
                                     LayoutCachedTop =1680
                                     LayoutCachedWidth =4080
@@ -633,7 +633,7 @@ Begin Form
                                     Top =1380
                                     Width =1140
                                     Height =315
-                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
+                                    ColumnInfo ="\"\";\"\";\"Common Name\";\"\";\"10\";\"100\""
                                     Name ="cbo_Select_Species_Presence"
                                     RowSourceType ="Table/Query"
                                     RowSource ="SELECT tbl_Field_Data.AOU_Code, tlu_Species.Common_Name FROM tlu_Species INNER J"
@@ -1870,6 +1870,7 @@ Begin Form
                     RowSource ="SELECT Year([Date]) AS [Year] FROM tbl_Events UNION SELECT \"*\" as Year FROM tb"
                         "l_Events GROUP BY Year([Date]);"
                     ColumnWidths ="1080"
+                    AfterUpdate ="[Event Procedure]"
                     DefaultValue ="\"*\""
                     FontName ="Arial"
 
@@ -1911,7 +1912,51 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Compare Database
+Option Explicit
 
+' =================================
+' Form:         frm_Review_Analysis
+' Level:        Application form
+' Version:      1.01
+' Basis:        Export form
+'
+' Description:  Data review, export & analysis form object related properties, events, functions & procedures for UI display
+'
+' Source/date:  Mark Lehman/Geoff Sanders, unknown
+' Adapted:      Bonnie Campbell, February 17, 2019
+' References:   -
+' Revisions:
+'               ML/GS - unknown - 1.00 - initial version
+'               BLC - 2/17/2019 - 1.01 - added documentation, error handling, reorganized code
+'                                        fixed Excel export errors
+' =================================
+
+'---------------------
+' Declarations
+'---------------------
+
+'---------------------
+' Properties
+'---------------------
+
+'---------------------
+' Events
+'---------------------
+
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cbo_FilterByEvent_AfterUpdate()
 If Me!cbo_FilterByEvent = "" Or IsNull(Me!cbo_FilterByEvent) Then
     Me!cmd_Review_NonTarget_SPP.Enabled = False
@@ -1922,6 +1967,20 @@ Else
 End If
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cbo_Select_Event_AfterUpdate()
 If Me!cbo_Select_Event = "" Or IsNull(Me!cbo_Select_Event) Then
     Me!cmd_Review.Enabled = False
@@ -1933,6 +1992,20 @@ End If
 
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cbo_Select_Plot_AfterUpdate()
 If Not IsNull(Me!cbo_Select_Plot) And Not IsNull(Me!cbo_Plot_Year) Then
     Me!cmd_Calc_Plot_Density.Enabled = True
@@ -1942,6 +2015,21 @@ End If
 
 End Sub
 
+
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cbo_Year_AfterUpdate()
 
 If Not IsNull(Me!cbo_Year) Or Me!cbo_Year <> "" Then
@@ -1952,11 +2040,40 @@ End If
 
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cbo_Select_Species_Presence_AfterUpdate()
 
 Me!cmd_View_Results.Enabled = True
 
 End Sub
+
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Abundance_Calc_Click()
 On Error GoTo Err_cmd_Abundance_Calc_Click
 
@@ -2022,7 +2139,7 @@ End Select
 
 DoCmd.SetWarnings True
 
-Set db = Nothing
+'Set db = Nothing
 Set accobj = Nothing
 
 DoCmd.Hourglass False
@@ -2035,6 +2152,21 @@ Err_cmd_Abundance_Calc_Click:
     Resume Exit_cmd_Abundance_Calc_Click
     
 End Sub
+
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Function fxn_Mean_Reg_Abundance()
 
 Dim db As DAO.Database
@@ -2059,6 +2191,20 @@ DoCmd.RunSQL (strSQL_Abundance)
    
 End Function
             
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Function fxn_Mean_Park_Abundance()
 'Check to see if the temporary tables exist.  If they do then delete them.
 
@@ -2086,6 +2232,20 @@ DoCmd.RunSQL (strSQL_Abundance)
 
 End Function
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Export_Abundance_Click()
 On Error GoTo Err_cmd_Export_Abundance_Click
 
@@ -2149,6 +2309,20 @@ Err_cmd_Export_Abundance_Click:
 
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Browse_Abundance_Click()
 Dim txt_Control As Control
 Dim intInteger As Integer
@@ -2157,6 +2331,20 @@ Set txt_Control = Me!txt_Abundance_Export_File
 fxn_Browse txt_Control, intInteger
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Browse_BCI_Click()
 
 Dim txt_Control As Control
@@ -2167,6 +2355,20 @@ fxn_Browse txt_Control, intInteger
    
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Browse_Density_Export_Click()
 
 Dim txt_Control As Control
@@ -2177,6 +2379,20 @@ fxn_Browse txt_Control, intInteger
 
 End Sub
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Browse_Export_Data_File_Click()
 If IsNull(Me!optFrame_ChooseExport) Then
     MsgBox "Please choose an export format!", , "NCRN Forest Bird Monitoring"
@@ -2192,10 +2408,27 @@ fxn_Browse txt_Control, intInteger
 '2 = CSV R Export
 '3 = CSV Annual Snapshot
 End Sub
+
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Public Function fxn_Browse(txt_Control As Control, intFormat As Integer)
     Dim varFileName As Variant
     Dim strFilter As String
     Dim strFileName As String
+    
+    Dim openat As String
     
     Select Case intFormat
     
@@ -2223,6 +2456,20 @@ Public Function fxn_Browse(txt_Control As Control, intFormat As Integer)
     
 End Function
 
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Export_Proportion_Detected_Click()
 On Error GoTo Err_cmd_Export_Proportion_Detected_Click
 
@@ -2288,7 +2535,20 @@ Err_cmd_Export_Proportion_Detected_Click:
 End Sub
 
 
-
+' ---------------------------------
+' Sub:          Form_Open
+' Description:  form opening actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
 Private Sub cmd_Export_BCI_Click()
 On Error GoTo Err_cmd_Export_BCI_Click
 
@@ -2353,225 +2613,238 @@ Err_cmd_Export_BCI_Click:
     Resume Exit_cmd_Export_BCI_Click
 
 End Sub
+
+' ---------------------------------
+' Sub:          btnExportDataFile_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnExportDataFile_Click()
 Private Sub cmd_Export_Data_File_Click()
+On Error GoTo Err_Handler
 
-On Error GoTo Err_cmd_Export_Data_File_Click
-
-Dim db As DAO.Database
-Dim rst As DAO.Recordset
-Set db = CurrentDb
-Dim strFileName As String
-Dim rstParks As DAO.Recordset
-
-Dim strPark As String
-Dim varYear As Variant
-Dim strProcName As String
-Dim frmStatus As Form
-Dim strMessage As String
-Dim strParkSQL As String
-Dim qDefParks As QueryDef
-Dim iLoop As Integer
-
-Dim strSQL As String
-Dim qDef As QueryDef
-
-Dim strFileLocation As String
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Set db = CurrentDb
+    Dim strFileName As String
+    Dim rstParks As DAO.Recordset
+    
+    Dim strPark As String
+    Dim varYear As Variant
+    Dim strProcName As String
+    Dim frmStatus As Form
+    Dim strMessage As String
+    Dim strParkSQL As String
+    Dim qDefParks As QueryDef
+    Dim iLoop As Integer
+    
+    Dim strSQL As String
+    Dim qDef As QueryDef
+    
+    Dim strFileLocation As String
+            
+    Dim strDestDir As String
+            
+    strProcName = "Export Data"
         
-strProcName = "Export Data"
-        
-'Check to see if a file name and location has been chosen.
-If Me!txt_Export_Data_File = "" Or IsNull(Me!txt_Export_Data_File) Then
-    MsgBox "You must enter a destination and file name for the export file.", , "Export Data"
-    Me!txt_Export_Data_File.SetFocus
-    Exit Sub
-ElseIf Me!optFrame_ChooseExport = "" Or IsNull(Me!optFrame_ChooseExport) Then
-    MsgBox "You must select an export format", vbOKOnly, "Export Data"
-    Me!optFrame_ChooseExport.SetFocus
-    Exit Sub
-End If
-
-Select Case Me!optFrame_ChooseExport
-
-Case 1 'Excel Data Summary
-
-strPark = Me!cbo_Park
-
-strParkSQL = "SELECT tbl_Locations.Admin_Unit_Code AS Park " _
-            & "FROM tbl_Locations " _
-            & "GROUP BY tbl_Locations.Admin_Unit_Code " _
-            & "HAVING (((tbl_Locations.Admin_Unit_Code) Like " & """" & strPark & """" & "));"
-
-For Each qDef In db.QueryDefs
-    If qDef.Name = "_qSelect_Park" Then
-        db.QueryDefs.Delete "_qSelect_Park"
+    'Check to see if a file name and location has been chosen.
+    If Me!txt_Export_Data_File = "" Or IsNull(Me!txt_Export_Data_File) Then
+        MsgBox "You must enter a destination and file name for the export file.", , "Export Data"
+        Me!txt_Export_Data_File.SetFocus
+        Exit Sub
+    ElseIf Me!optFrame_ChooseExport = "" Or IsNull(Me!optFrame_ChooseExport) Then
+        MsgBox "You must select an export format", vbOKOnly, "Export Data"
+        Me!optFrame_ChooseExport.SetFocus
+        Exit Sub
     End If
-Next
+    
+    Select Case Me!optFrame_ChooseExport
 
-Set qDefParks = db.CreateQueryDef("_qSelect_Park", strParkSQL)
-Set rstParks = db.OpenRecordset("_qSelect_Park")
+        Case 1 'Excel Data Summary
 
-'Export to Excel
-'Set the Park Variable by looping through the parks recordset.
-rstParks.MoveFirst
-
-strFileLocation = Me!txt_Export_Data_File
-'Open the status form to keep the user informed on what is running
-    'Turn on the hourglass to indicate the process is running
-    DoCmd.Hourglass (True)
-
-        'Set the necessary variables for the progress bar.  Use 11 as a constant because 11 parks will be processed.
-        '***Could use the position in the recordset to do this***.
-        Dim intProgMax As Integer
-        intProgMax = rstParks.RecordCount
-
-        'iLoop will count the number of loops to know how many parks have been completed.
-       
-        iLoop = 0
-
-        DoCmd.OpenForm "frm_Proc_Status"
-
-        Set frmStatus = Forms!frm_Proc_Status
-
-        With frmStatus
-
-            Do While Not rstParks.EOF
-            strPark = rstParks!Park
-            varYear = Forms!frm_Review_Analysis_Tools!cbo_Year
-            'MsgBox strPark
-
-            'Create the message to display on the status form.
-            strMessage = "Processing data export for: " & vbNewLine _
-            & strPark & vbNewLine _
-            & "This may take a few minutes."
-
-            !lbl_Proc.Caption = strMessage
-
-       'Create the SQL statement for the export data set
-            If chk_Geo_Info = False Then
+            strPark = Me!cbo_Park
             
-            strSQL = "SELECT qExport_Events.Admin_Unit_Code, qExport_Events.Sub_Unit_Code, qExport_Events.Site_Name, " _
-                    & "qExport_Events.Plot_Name, qExport_Events.Location_Type, qExport_Events.Year, qExport_Events.Date, qExport_Events.Start_Time, qExport_Events.End_Time " _
-                    & "qExport_Events.Observer, qExport_Events.Visit, qExportFieldData.Interval_Length, qExportFieldData.ID_Method, " _
-                    & "qExportFieldData.Distance, qExportFieldData.Flyover_Observed, qExport_Field_Data.Sex, qExport_Field_Data.Common_Name, " _
-                    & "qExportFieldData.Scientific_Name, qExportFieldData.AcceptedTSN, qExportFieldData.NPSTaxonCode ,qExportFieldData.AOU_Code, qExportFieldData.PIF_Watchlist_Status, " _
-                    & "qExportFieldData.Regional_Stewardship_Status, qExport_Event_Details.Temperature, qExport_Event_Details.Humidity, qExport_Event_Details.Sky, " _
-                    & "qExport_Event_Details.Wind, qExport_Event_Details.Disturbance, qExportFieldData.Initial_Three_Min_Cnt "
-            strSQL = strSQL & "FROM " _
-                    & "(qExport_Events LEFT JOIN qExportFieldData ON qExport_Events.Event_ID = qExportFieldData.Event_ID) " _
-                    & "LEFT JOIN qExport_Event_Details ON qExport_Events.Event_ID = qExport_Event_Details.Event_ID "
-            strSQL = strSQL & "WHERE (((qExport_Events.Admin_Unit_Code) = " & """" & strPark & """" & ") AND ((Year) Like " & """" & varYear & """" & "));"
+            strParkSQL = "SELECT tbl_Locations.Admin_Unit_Code AS Park " _
+                        & "FROM tbl_Locations " _
+                        & "GROUP BY tbl_Locations.Admin_Unit_Code " _
+                        & "HAVING (((tbl_Locations.Admin_Unit_Code) Like " & """" & strPark & """" & "));"
 
-        Else
-        
-        strSQL = "SELECT qExport_Events.Admin_Unit_Code, qExport_Events.Sub_Unit_Code, qExport_Events.Site_Name, " _
-                    & "qExport_Events.Coord_Units, qExport_Events.Coord_System, qExport_Events.UTM_Zone, qExport_Events.Datum, " _
-                    & "qExport_Events.UTM_X_Coord, qExport_Events.UTM_Y_Coord, qExport_Events.Plot_Name, qExport_Events.Location_Type, " _
-                    & "qExport_Events.Year, qExport_Events.Date, qExport_Events.Start_Time, qExport_Events.End_Time, qExport_Events.Observer, " _
-                    & "qExport_Events.Visit, qExportFieldData.Interval_Length, qExportFieldData.ID_Method, qExportFieldData.Distance, " _
-                    & "qExportFieldData.Flyover_Observed, qExportFieldData.Sex, qExportFieldData.Common_Name, " _
-                    & "qExportFieldData.Scientific_Name, qExportFieldData.AcceptedTSN, qExportFieldData.NPSTaxonCode , qExportFieldData.AOU_Code," _
-                    & "qExportFieldData.PIF_Watchlist_Status, qExportFieldData.Regional_Stewardship_Status, " _
-                    & "qExport_Event_Details.Temperature, qExport_Event_Details.Humidity, qExport_Event_Details.Sky, qExport_Event_Details.Wind, " _
-                    & "qExport_Event_Details.Disturbance, qExportFieldData.Initial_Three_Min_Cnt "
-            strSQL = strSQL & "FROM " _
-                    & "(qExport_Events LEFT JOIN qExportFieldData ON qExport_Events.Event_ID = qExportFieldData.Event_ID) " _
-                    & "LEFT JOIN qExport_Event_Details ON qExport_Events.Event_ID = qExport_Event_Details.Event_ID "
-            strSQL = strSQL & "WHERE (((qExport_Events.Admin_Unit_Code) = " & """" & strPark & """" & ") AND ((Year) Like " & """" & varYear & """" & "));"
+            For Each qDef In db.QueryDefs
+                If qDef.Name = "_qSelect_Park" Then
+                    db.QueryDefs.Delete "_qSelect_Park"
+                End If
+            Next
 
-        End If
-        
-        'set the file name = to the park so that the worksheet name in Excel will match the park associated with the data.
-        strFileName = strPark
-        
-        Set qDef = db.CreateQueryDef(strFileName, strSQL)
-        
-        'send the information to the export function.
-             
-         'Export to MS Excel
-                
-                fxn_ExportData strFileName, strFileLocation
-                
-        'delete the query so that it can be recreated for the next park.  Also, no sense in cluttering up the database with extra queries.
-        
-                DoCmd.DeleteObject acQuery, strFileName
-        
-        'cycle to the next park name.
-        rstParks.MoveNext
-        'update the loop to reflect the number of parks processed
-        iLoop = iLoop + 1
-        'update the progress bar to reflect the number of parks processed.
-        !BoxB.Width = (!boxA.Width / intProgMax) * iLoop
-        
-        'Control or subform too large for this location???***Try this to see if it works
-        '!boxB.Width = (!boxA.Width / rstParks.RecordCount) * rstParks.AbsolutePosition
-        
-        .Repaint
+            Set qDefParks = db.CreateQueryDef("_qSelect_Park", strParkSQL)
+            Set rstParks = db.OpenRecordset("_qSelect_Park")
+
+            'Export to Excel
+            'Set the Park Variable by looping through the parks recordset.
+            rstParks.MoveFirst
+
+            strFileLocation = Me!txt_Export_Data_File
+            'Open the status form to keep the user informed on what is running
+            'Turn on the hourglass to indicate the process is running
+            DoCmd.Hourglass (True)
+
+            'Set the necessary variables for the progress bar.  Use 11 as a constant because 11 parks will be processed.
+            '***Could use the position in the recordset to do this***.
+            Dim intProgMax As Integer
+            intProgMax = rstParks.RecordCount
+
+            'iLoop will count the number of loops to know how many parks have been completed.
        
-     Loop
-        'Turn off the hourglass once the the export is completed
-        DoCmd.Hourglass (False)
-                  
-        MsgBox "Successfully exported records to Excel file " & vbNewLine & vbNewLine _
-            & strFileLocation
-        'Reset the status bar to 0
-        !BoxB.Width = 0
+            iLoop = 0
+
+            DoCmd.OpenForm "frm_Proc_Status"
+
+            Set frmStatus = Forms!frm_Proc_Status
+
+            With frmStatus
+
+                Do While Not rstParks.EOF
+                    strPark = rstParks!Park
+                    varYear = Forms!frm_Review_Analysis_Tools!cbo_Year
+                    'MsgBox strPark
         
-End With
-        'Close the status bar form.
-        DoCmd.Close acForm, "frm_Proc_Status"
-        
-Me!txt_Export_Data_File = ""
-
-rstParks.Close
-DoCmd.DeleteObject acQuery, "_qSelect_Park"
-Case 2 'R Export
-Dim strDestDirR As String
-
-strDestDirR = Me!txt_Export_Data_File & "\"
-DoCmd.TransferText acExportDelim, , "qExport_Visits", strDestDir & "qExport_Visits" & CStr(Format(Now(), "yyyymmdd")) & ".csv", True
-DoCmd.TransferText acExportDelim, , "qExport_Locations", strDestDirR & "qExport_Locations" & CStr(Format(Now(), "yyyymmdd")) & ".csv", True
-DoCmd.TransferText acExportDelim, , "qExportFieldData", strDestDirR & "qExportFieldData" & CStr(Format(Now(), "yyyymmdd")) & ".csv", True
-
-MsgBox "Successfully exported R analysis files."
-
-
-
-
-
-Case 3 'Data snapshot CSV export
-
-Dim rs As DAO.Recordset
-Dim tdef As TableDef
-
-Set db = CurrentDb
-Set rs = db.OpenRecordset("qArchiveTables")
-
-'populate the recordset so the iRecCnt returns the correct record count
-rs.MoveLast
-rs.MoveFirst
-
-'the name of the table being exported
-Dim strExportFileName As String
-
-'the path to the directory where the database currently resides
-'Dim strDestDir As String '***FIX 9/26/2018 - Duplicate declaration in scope
-
-'Set these variables to use with the progress meter.
-Dim iRecCnt As Integer
-
-iLoop = 0
-  
-Do While Not rs.EOF
-iRecCnt = rs.RecordCount
-DoCmd.OpenForm "frm_Proc_Status"
-DoCmd.RunCommand acCmdSaveRecord
-
-        For Each tdef In db.TableDefs
+                    'Create the message to display on the status form.
+                    strMessage = "Processing data export for: " & vbNewLine _
+                    & strPark & vbNewLine _
+                    & "This may take a few minutes."
+    
+                    !lbl_Proc.Caption = strMessage
+    
+                    'Create the SQL statement for the export data set
+                    If chk_Geo_Info = False Then
+                
+                        strSQL = "SELECT qExport_Events.Admin_Unit_Code, qExport_Events.Sub_Unit_Code, qExport_Events.Site_Name, " _
+                                & "qExport_Events.Plot_Name, qExport_Events.Location_Type, qExport_Events.Year, qExport_Events.Date, qExport_Events.Start_Time, qExport_Events.End_Time, " _
+                                & "qExport_Events.Observer, qExport_Events.Visit, qExportFieldData.Interval_Length, qExportFieldData.ID_Method, " _
+                                & "qExportFieldData.Distance, qExportFieldData.Flyover_Observed, qExportFieldData.Sex, qExportFieldData.Common_Name, " _
+                                & "qExportFieldData.Scientific_Name, qExportFieldData.AcceptedTSN, qExportFieldData.NPSTaxonCode ,qExportFieldData.AOU_Code, qExportFieldData.PIF_Watchlist_Status, " _
+                                & "qExportFieldData.Regional_Stewardship_Status, qExport_Event_Details.Temperature, qExport_Event_Details.Humidity, qExport_Event_Details.Sky, " _
+                                & "qExport_Event_Details.Wind, qExport_Event_Details.Disturbance, qExportFieldData.Initial_Three_Min_Cnt "
+                        strSQL = strSQL & "FROM " _
+                                & "(qExport_Events LEFT JOIN qExportFieldData ON qExport_Events.Event_ID = qExportFieldData.Event_ID) " _
+                                & "LEFT JOIN qExport_Event_Details ON qExport_Events.Event_ID = qExport_Event_Details.Event_ID "
+                        strSQL = strSQL & "WHERE (((qExport_Events.Admin_Unit_Code) = " & """" & strPark & """" & ") AND ((Year) Like " & """" & varYear & """" & "));"
+    
+                    Else
             
-            Dim strAppTableName As String
-            strAppTableName = tdef.Name
-                 If strAppTableName = rs![Link_table] Then
-                    strExportFileName = strAppTableName
+                        strSQL = "SELECT qExport_Events.Admin_Unit_Code, qExport_Events.Sub_Unit_Code, qExport_Events.Site_Name, " _
+                                    & "qExport_Events.Coord_Units, qExport_Events.Coord_System, qExport_Events.UTM_Zone, qExport_Events.Datum, " _
+                                    & "qExport_Events.UTM_X_Coord, qExport_Events.UTM_Y_Coord, qExport_Events.Plot_Name, qExport_Events.Location_Type, " _
+                                    & "qExport_Events.Year, qExport_Events.Date, qExport_Events.Start_Time, qExport_Events.End_Time, qExport_Events.Observer, " _
+                                    & "qExport_Events.Visit, qExportFieldData.Interval_Length, qExportFieldData.ID_Method, qExportFieldData.Distance, " _
+                                    & "qExportFieldData.Flyover_Observed, qExportFieldData.Sex, qExportFieldData.Common_Name, " _
+                                    & "qExportFieldData.Scientific_Name, qExportFieldData.AcceptedTSN, qExportFieldData.NPSTaxonCode , qExportFieldData.AOU_Code," _
+                                    & "qExportFieldData.PIF_Watchlist_Status, qExportFieldData.Regional_Stewardship_Status, " _
+                                    & "qExport_Event_Details.Temperature, qExport_Event_Details.Humidity, qExport_Event_Details.Sky, qExport_Event_Details.Wind, " _
+                                    & "qExport_Event_Details.Disturbance, qExportFieldData.Initial_Three_Min_Cnt "
+                        strSQL = strSQL & "FROM " _
+                                & "(qExport_Events LEFT JOIN qExportFieldData ON qExport_Events.Event_ID = qExportFieldData.Event_ID) " _
+                                & "LEFT JOIN qExport_Event_Details ON qExport_Events.Event_ID = qExport_Event_Details.Event_ID "
+                        strSQL = strSQL & "WHERE (((qExport_Events.Admin_Unit_Code) = " & """" & strPark & """" & ") AND ((Year) Like " & """" & varYear & """" & "));"
+    
+                    End If
+            
+                    'set the file name = to the park so that the worksheet name in Excel will match the park associated with the data.
+                    strFileName = strPark
+                    
+                    Set qDef = db.CreateQueryDef(strFileName, strSQL)
+                    
+                    'send the information to the export function.
+                 
+                    'Export to MS Excel
+                    
+                    fxn_ExportData strFileName, strFileLocation
+                    
+                    'delete the query so that it can be recreated for the next park.  Also, no sense in cluttering up the database with extra queries.
+            
+                    DoCmd.DeleteObject acQuery, strFileName
+            
+                    'cycle to the next park name.
+                    rstParks.MoveNext
+                    'update the loop to reflect the number of parks processed
+                    iLoop = iLoop + 1
+                    'update the progress bar to reflect the number of parks processed.
+                    !BoxB.Width = (!boxA.Width / intProgMax) * iLoop
+            
+                    'Control or subform too large for this location???***Try this to see if it works
+                    '!boxB.Width = (!boxA.Width / rstParks.RecordCount) * rstParks.AbsolutePosition
+                    
+                    .Repaint
+           
+                 Loop
+                'Turn off the hourglass once the the export is completed
+                DoCmd.Hourglass (False)
+                      
+                MsgBox "Successfully exported records to Excel file " & vbNewLine & vbNewLine _
+                    & strFileLocation
+                'Reset the status bar to 0
+                !BoxB.Width = 0
+            End With
+        
+            'Close the status bar form.
+            DoCmd.Close acForm, "frm_Proc_Status"
+        
+            Me!txt_Export_Data_File = ""
+
+            rstParks.Close
+            DoCmd.DeleteObject acQuery, "_qSelect_Park"
+        Case 2 'R Export
+            Dim strDestDirR As String
+            
+            strDestDirR = Me!txt_Export_Data_File & "\"
+            DoCmd.TransferText acExportDelim, , "qExport_Visits", strDestDir & "qExport_Visits" & CStr(Format(Now(), "yyyymmdd")) & ".csv", True
+            DoCmd.TransferText acExportDelim, , "qExport_Locations", strDestDirR & "qExport_Locations" & CStr(Format(Now(), "yyyymmdd")) & ".csv", True
+            DoCmd.TransferText acExportDelim, , "qExportFieldData", strDestDirR & "qExportFieldData" & CStr(Format(Now(), "yyyymmdd")) & ".csv", True
+
+            MsgBox "Successfully exported R analysis files."
+
+        Case 3 'Data snapshot CSV export
+
+            Dim rs As DAO.Recordset
+            Dim tdef As TableDef
+            
+            Set db = CurrentDb
+            Set rs = db.OpenRecordset("qArchiveTables")
+            
+            'populate the recordset so the iRecCnt returns the correct record count
+            rs.MoveLast
+            rs.MoveFirst
+
+            'the name of the table being exported
+            Dim strExportFileName As String
+            
+            'the path to the directory where the database currently resides
+            'Dim strDestDir As String '***FIX 9/26/2018 - Duplicate declaration in scope
+            
+            'Set these variables to use with the progress meter.
+            Dim iRecCnt As Integer
+
+            iLoop = 0
+              
+            Do While Not rs.EOF
+                iRecCnt = rs.RecordCount
+                DoCmd.OpenForm "frm_Proc_Status"
+                DoCmd.RunCommand acCmdSaveRecord
+
+                For Each tdef In db.TableDefs
+                    
+                    Dim strAppTableName As String
+                    strAppTableName = tdef.Name
+                    If strAppTableName = rs![Link_table] Then
+                        strExportFileName = strAppTableName
                     strDestDir = Me!txt_Export_Data_File & "\" & strExportFileName & "_" & CStr(Format(Now(), "yyyymmdd")) & ".csv"
                     'fxn_ExportToCSV strFileName, strInitDir & "\" & strFileName & CStr(Format(Now(), "yyyymmdd")) 'strFileLocation
                     'DoCmd.TransferText acExportDelim, , strExportFileName, strInitDir & "\" & strExportFileName & "_Export" ' & CStr(Format(Now(), "yyyymmdd")), True
@@ -2586,228 +2859,287 @@ DoCmd.RunCommand acCmdSaveRecord
             
 NextRecord:
         Next
+    
+        rs.MoveNext
+        iLoop = iLoop + 1
+    
+        Loop
 
-rs.MoveNext
-iLoop = iLoop + 1
+    End Select
 
-Loop
-
-End Select
-
-DoCmd.Close acForm, "frm_Proc_Status"
-MsgBox "Export Complete", , "NCRN Forest Bird Monitoring - " & strProcName
-Me!txt_Export_Data_File = ""
+    DoCmd.Close acForm, "frm_Proc_Status"
+    MsgBox "Export Complete", , "NCRN Forest Bird Monitoring - " & strProcName
+    Me!txt_Export_Data_File = ""
     'reset the naming variables for the csv file
 
 
-Set tdef = Nothing
-Set rs = Nothing
-Set db = Nothing
-Set rstParks = Nothing
-Set qDef = Nothing
-Set qDefParks = Nothing
-Set varYear = Nothing
-Set frmStatus = Nothing
-strProcName = ""
-strFileName = ""
+    Set tdef = Nothing
+    Set rs = Nothing
+    Set db = Nothing
+    Set rstParks = Nothing
+    Set qDef = Nothing
+    Set qDefParks = Nothing
+    Set varYear = Nothing
+    Set frmStatus = Nothing
+    strProcName = ""
+    strFileName = ""
 
-
-Exit_cmd_Export_Data_File_Click:
+Exit_Handler:
     Exit Sub
-Err_cmd_Export_Data_File_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Export_Data_File_Click
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnExportDensity_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-
+' ---------------------------------
+' Sub:          btnExportSpeciesSummary_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnExportSpeciesSummary_Click()
 Private Sub cmd_Export_Species_Summary_Click()
-On Error GoTo Err_cmd_Export_Species_Summary_Click
+On Error GoTo Err_Handler
 
-Dim strFileName As String
-'Dim rstLog As DAO.Recordset
-'Set rstLog = db.OpenRecordset("tbl_Export_Log")
-'Dim rstExport_True As DAO.Recordset
-'Set rstExport_True = db.OpenRecordset("tbl_Export")
+    Dim strFileName As String
+    'Dim rstLog As DAO.Recordset
+    'Set rstLog = db.OpenRecordset("tbl_Export_Log")
+    'Dim rstExport_True As DAO.Recordset
+    'Set rstExport_True = db.OpenRecordset("tbl_Export")
+    Dim strFileLocation As String
+    Dim intExportFormat As Integer
 
+    'Check to see if a file name and location has been chosen.
+    If Me!txt_Abundance_Export_File = "" Or IsNull(Me!txt_Abundance_Export_File) Then
+        MsgBox "You must enter a destination and file name for the export file.", , "Export Data"
+        Me!txt_Abundance_Export_File.SetFocus
+        Exit Sub
 
-Dim strFileLocation As String
-Dim intExportFormat As Integer
-
-        
-'Check to see if a file name and location has been chosen.
-If Me!txt_Abundance_Export_File = "" Or IsNull(Me!txt_Abundance_Export_File) Then
-    MsgBox "You must enter a destination and file name for the export file.", , "Export Data"
-    Me!txt_Abundance_Export_File.SetFocus
-    Exit Sub
-
-'Export to Excel
-Else
-
-    Select Case Me!grp_Select_Abundance_Report.Value
-
-        Case 1
-    
-            strFileName = "qxtab_Regional_Spp_List_Cnt"
-            strFileLocation = Me!txt_Abundance_Export_File
-        
-            ExportData strFileName, strFileLocation
-    'DoCmd.Close
-        Case 2
-            If Me!cbo_Park = "" Or IsNull(Me!cbo_Park) Then
-                MsgBox "You must select a park before proceeding", vbExclamation, "Export Data"
-                Exit Sub
-                
-            Else
-                strFileName = "qxtab_Park_Spp_List_Year_Cnt"
+    'Export to Excel
+    Else
+        Select Case Me!grp_Select_Abundance_Report.Value
+            Case 1
+                strFileName = "qxtab_Regional_Spp_List_Cnt"
                 strFileLocation = Me!txt_Abundance_Export_File
-        
+
                 ExportData strFileName, strFileLocation
-            End If
-            
-        'DoCmd.Close
-        Case Else
-            MsgBox "Please choose whether you wish to export Regional or Park level data", vbExclamation, "Export Data"
-            Exit Sub
-            
-    
-End Select
-End If
-      
+                'DoCmd.Close
+            Case 2
+                If Me!cbo_Park = "" Or IsNull(Me!cbo_Park) Then
+                    MsgBox "You must select a park before proceeding", vbExclamation, "Export Data"
+                    Exit Sub
+                Else
+                    strFileName = "qxtab_Park_Spp_List_Year_Cnt"
+                    strFileLocation = Me!txt_Abundance_Export_File
 
+                    ExportData strFileName, strFileLocation
+                End If
 
-strFileName = ""
-Me!txt_Abundance_Export_File = ""
-   
-Exit_cmd_Export_Species_Summary_Click:
+                'DoCmd.Close
+            Case Else
+                MsgBox "Please choose whether you wish to export Regional or Park level data", vbExclamation, "Export Data"
+                Exit Sub
+        End Select
+    End If
+
+    strFileName = ""
+    Me!txt_Abundance_Export_File = ""
+
+Exit_Handler:
     Exit Sub
-Err_cmd_Export_Species_Summary_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Export_Species_Summary_Click
-
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnExportSpeciesSummary_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-
-
+' ---------------------------------
+' Sub:          btnParkSppSummary_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnParkSppSummary_Click()
 Private Sub cmd_Park_Spp_Summary_Click()
-On Error GoTo Err_cmd_Park_Spp_Summary_Click
+On Error GoTo Err_Handler
 
-Dim stDocName As String
-Dim accobj As AccessObject
-
-Select Case Me!grp_Select_Abundance_Report.Value
-Case 1
-    stDocName = "rpt_Annual_Regional_Spp_List"
+    Dim stDocName As String
+    Dim accobj As AccessObject
     
-    'This function closes the report if the report happens to already be open then re-opens it.
-    Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
-    If accobj.IsLoaded Then
-        If accobj.CurrentView = acCurViewPreview Then
-            DoCmd.Close acReport, stDocName
-            DoCmd.OpenReport stDocName, acViewPreview
-        End If
-    Else
-        DoCmd.OpenReport stDocName, acViewPreview
-    End If
-
-Case 2
-
-If Me!cbo_Park = "" Or IsNull(cbo_Park) Then
-    MsgBox "You must select a park before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
-    Me!cbo_Park.SetFocus
-    Exit Sub
-End If
-
-     stDocName = "rpt_Annual_Park_Spp_List"
+    Select Case Me!grp_Select_Abundance_Report.Value
+        Case 1
+            stDocName = "rpt_Annual_Regional_Spp_List"
     
-    'This function closes the report if the report happens to already be open then re-opens it.
-    Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
-    If accobj.IsLoaded Then
-        If accobj.CurrentView = acCurViewPreview Then
-            DoCmd.Close acReport, stDocName
-            DoCmd.OpenReport stDocName, acViewPreview
-        End If
-    Else
-        DoCmd.OpenReport stDocName, acViewPreview
-    End If
-End Select
-Set accobj = Nothing
+            'This function closes the report if the report happens to already be open then re-opens it.
+            Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
+            If accobj.IsLoaded Then
+                If accobj.CurrentView = acCurViewPreview Then
+                    DoCmd.Close acReport, stDocName
+                    DoCmd.OpenReport stDocName, acViewPreview
+                End If
+            Else
+                DoCmd.OpenReport stDocName, acViewPreview
+            End If
+    
+        Case 2
+    
+            If Me!cbo_Park = "" Or IsNull(cbo_Park) Then
+                MsgBox "You must select a park before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
+                Me!cbo_Park.SetFocus
+                Exit Sub
+            End If
+    
+            stDocName = "rpt_Annual_Park_Spp_List"
+    
+            'This function closes the report if the report happens to already be open then re-opens it.
+            Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
+            If accobj.IsLoaded Then
+                If accobj.CurrentView = acCurViewPreview Then
+                DoCmd.Close acReport, stDocName
+                DoCmd.OpenReport stDocName, acViewPreview
+                End If
+            Else
+                DoCmd.OpenReport stDocName, acViewPreview
+            End If
+    End Select
+    Set accobj = Nothing
 
-Exit_cmd_Park_Spp_Summary_Click:
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Park_Spp_Summary_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Park_Spp_Summary_Click
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnParkSppSummary_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnRptPointsDetected_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnRptPointsDetected_Click()
 Private Sub cmd_Rpt_Points_Detected_Click()
-On Error GoTo Err_cmd_Rpt_Points_Detected_Click
-
-
-
-
-Dim stDocName As String
-Dim accobj As AccessObject
-
-Select Case Me!grp_Select_Abundance_Report.Value
-Case 1
-
-  stDocName = "rpt_Percent_Pts_Spp_Detected_Region"
+On Error GoTo Err_Handler
     
-    'This function closes the report if the report happens to already be open then re-opens it.
-    Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
-    If accobj.IsLoaded Then
-        If accobj.CurrentView = acCurViewPreview Then
-            DoCmd.Close acReport, stDocName
-            DoCmd.OpenReport stDocName, acViewPreview
-        End If
-    Else
-        DoCmd.OpenReport stDocName, acViewPreview
-    End If
- 
-Case 2
+    Dim stDocName As String
+    Dim accobj As AccessObject
+    
+    Select Case Me!grp_Select_Abundance_Report.Value
+        Case 1
+            stDocName = "rpt_Percent_Pts_Spp_Detected_Region"
+            
+            'This function closes the report if the report happens to already be open then re-opens it.
+            Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
+            If accobj.IsLoaded Then
+                If accobj.CurrentView = acCurViewPreview Then
+                    DoCmd.Close acReport, stDocName
+                    DoCmd.OpenReport stDocName, acViewPreview
+                End If
+            Else
+                DoCmd.OpenReport stDocName, acViewPreview
+            End If
 
- If Me!cbo_Park = "" Or IsNull(cbo_Park) Then
-    MsgBox "You must select a park before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
-    Me!cbo_Park.SetFocus
+        Case 2
+
+            If Me!cbo_Park = "" Or IsNull(cbo_Park) Then
+                MsgBox "You must select a park before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
+                Me!cbo_Park.SetFocus
+                Exit Sub
+            Else
+                stDocName = "rpt_Percent_Pts_Spp_Detected2"
+
+                'This function closes the report if the report happens to already be open then re-opens it.
+                Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
+                If accobj.IsLoaded Then
+                    If accobj.CurrentView = acCurViewPreview Then
+                        DoCmd.Close acReport, stDocName
+                        DoCmd.OpenReport stDocName, acViewPreview
+                    End If
+                Else
+                    DoCmd.OpenReport stDocName, acViewPreview
+                End If
+            End If
+
+        Case Else
+            MsgBox "Please select whether the data should be summarized by Park or by Region.", vbInformation, "NCRN Bird Monitoring"
+            Exit Sub
+
+    End Select
+    Set accobj = Nothing
+
+Exit_Handler:
     Exit Sub
-Else
-     stDocName = "rpt_Percent_Pts_Spp_Detected2"
     
-    'This function closes the report if the report happens to already be open then re-opens it.
-    Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
-    If accobj.IsLoaded Then
-        If accobj.CurrentView = acCurViewPreview Then
-            DoCmd.Close acReport, stDocName
-            DoCmd.OpenReport stDocName, acViewPreview
-        End If
-    Else
-        DoCmd.OpenReport stDocName, acViewPreview
-    End If
-End If
-
-Case Else
-    MsgBox "Please select whether the data should be summarized by Park or by Region.", vbInformation, "NCRN Bird Monitoring"
-    Exit Sub
-    
-End Select
-Set accobj = Nothing
-
-Exit_cmd_Rpt_Points_Detected_Click:
-    Exit Sub
-
-Err_cmd_Rpt_Points_Detected_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Rpt_Points_Detected_Click
-    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnRptPointsDetected_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnBrowse_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnBrowse_Click()
 Private Sub cmd_Browse_Click()
-Dim varFileName As Variant
+On Error GoTo Err_Handler
+
+    Dim varFileName As Variant
     Dim arrFile() As String
     Dim strFilter As String
     
-        strFilter = adhAddFilterItem(strFilter, "Microsoft Excel 97-2003 (*.xls)", "*.xls")
+    strFilter = adhAddFilterItem(strFilter, "Microsoft Excel 97-2003 (*.xls)", "*.xls")
     
     'Select the filename using function in basExport module
     varFileName = ChooseExportFile("", "")
@@ -2818,11 +3150,36 @@ Dim varFileName As Variant
     Else
         Me!txt_Export_File_Name = varFileName
     End If
-
+    
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnBrowse_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnCalcPlotDensity_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnCalcPlotDensity_Click()
 Private Sub cmd_Calc_Plot_Density_Click()
-On Error GoTo Err_cmd_Calc_Plot_Density_Click
+On Error GoTo Err_Handler
 
     Dim stDocName As String
     Dim stLinkCriteria As String
@@ -2830,73 +3187,107 @@ On Error GoTo Err_cmd_Calc_Plot_Density_Click
     stDocName = "frm_Plot_Density"
     DoCmd.OpenForm stDocName, , , stLinkCriteria
 
-Exit_cmd_Calc_Plot_Density_Click:
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Calc_Plot_Density_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Calc_Plot_Density_Click
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnCalcPlotDensity_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnExport_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnExport_Click()
 Private Sub cmd_Export_Click()
-On Error GoTo Err_cmd_Export_Click
+On Error GoTo Err_Handler
 
-Dim db As DAO.Database
-Dim rst As DAO.Recordset
-Set db = CurrentDb
-Dim strFileName As String
-'Dim rstLog As DAO.Recordset
-'Set rstLog = db.OpenRecordset("tbl_Export_Log")
-'Dim rstExport_True As DAO.Recordset
-'Set rstExport_True = db.OpenRecordset("tbl_Export")
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Set db = CurrentDb
+    Dim strFileName As String
+    'Dim rstLog As DAO.Recordset
+    'Set rstLog = db.OpenRecordset("tbl_Export_Log")
+    'Dim rstExport_True As DAO.Recordset
+    'Set rstExport_True = db.OpenRecordset("tbl_Export")
+    
+    'Dim strExportEventID As String
+    Dim strSQL As String
+    Dim qDef As QueryDef
+    Dim rstExport As DAO.Recordset
+    Dim booExport As Boolean
+    Dim strFileLocation As String
+    Dim intExportFormat As Integer
+    
+    'Check to see if a file name and location has been chosen.
+    If Me!txt_Export_File_Name = "" Or IsNull(Me!txt_Export_File_Name) Then
+        MsgBox "You must enter a destination and file name for the export file.", , "Export Data"
+        Me!txt_Export_File_Name.SetFocus
+        Exit Sub
+    End If
+    
+    'Export to Excel
+    
+    strFileName = "qry_Species_PRESENCE_c"
+    strFileLocation = Me!txt_Export_File_Name
+    
+    ExportData strFileName, strFileLocation ', intExportFormat
+                   
+    DoCmd.Close
+    
+    Set db = Nothing
+    Set rst = Nothing
+    Set qDef = Nothing
+    
+    Set rstExport = Nothing
+'    Set rst_Export_true = Nothing
+    
+    strFileName = ""
 
-'Dim strExportEventID As String
-Dim strSQL As String
-Dim qDef As QueryDef
-Dim rstExport As DAO.Recordset
-Dim booExport As Boolean
-Dim strFileLocation As String
-Dim intExportFormat As Integer
-
-        
-'Check to see if a file name and location has been chosen.
-If Me!txt_Export_File_Name = "" Or IsNull(Me!txt_Export_File_Name) Then
-    MsgBox "You must enter a destination and file name for the export file.", , "Export Data"
-    Me!txt_Export_File_Name.SetFocus
+Exit_Handler:
     Exit Sub
-End If
-
-'Export to Excel
-
-        strFileName = "qry_Species_PRESENCE_c"
-        strFileLocation = Me!txt_Export_File_Name
-       
-                ExportData strFileName, strFileLocation ', intExportFormat
-                
-                               
-                DoCmd.Close
-        
-
-Set db = Nothing
-Set rst = Nothing
-Set qDef = Nothing
-
-Set rstExport = Nothing
-Set rst_Export_true = Nothing
-
-strFileName = ""
-
-   
-Exit_cmd_Export_Click:
-    Exit Sub
-Err_cmd_Export_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Export_Click
-
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnExport_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnReviewNonTargetSpp_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnReviewNonTargetSpp_Click()
 Private Sub cmd_Review_NonTarget_SPP_Click()
-On Error GoTo Err_cmd_Review_NonTarget_SPP_Click
+On Error GoTo Err_Handler
 
     Dim stDocName As String
     Dim stLinkCriteria As String
@@ -2904,31 +3295,70 @@ On Error GoTo Err_cmd_Review_NonTarget_SPP_Click
     stDocName = "frm_Review_Non-Target_Spp"
     DoCmd.OpenForm stDocName, , , stLinkCriteria
 
-Exit_cmd_Review_NonTarget_SPP_Click:
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Review_NonTarget_SPP_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Review_NonTarget_SPP_Click
     
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnReviewNonTargetSpp_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
-Private Sub cmd_Report_NonTarget_Spp_Click()
-On Error GoTo Err_cmd_Report_NonTarget_Spp_Click
 
+' ---------------------------------
+' Sub:          btnReportNonTargetSpp_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private sub btnReportNonTargetSpp_Click()
+Private Sub cmd_Report_NonTarget_Spp_Click()
+On Error GoTo Err_Handler
+
+    Dim stDocName As String
 
     stDocName = "rpt_Non-Target_Spp"
     
-
-Exit_cmd_Report_NonTarget_Spp_Click:
-    Exit Sub
-
-Err_cmd_Report_NonTarget_Spp_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Report_NonTarget_Spp_Click
     
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnReportNonTargetSpp_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
+
+' ---------------------------------
+' Sub:          btnReview_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private sub btnReview_Click()
 Private Sub cmd_Review_Click()
-On Error GoTo Err_cmd_Review_Click
+On Error GoTo Err_Handler
 
     Dim stDocName As String
     Dim stLinkCriteria As String
@@ -2936,330 +3366,278 @@ On Error GoTo Err_cmd_Review_Click
     stDocName = "frm_Review_Data"
     DoCmd.OpenForm stDocName, , , stLinkCriteria
 
-Exit_cmd_Review_Click:
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Review_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Review_Click
     
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnReview_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
-Private Sub cmd_Event_Report_Click()
-On Error GoTo Err_cmd_Event_Report_Click
-  Dim stDocName As String
 
+' ---------------------------------
+' Sub:          btnEventReport_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private sub btnEventReport_Click()
+Private Sub cmd_Event_Report_Click()
+On Error GoTo Err_Handler
+    
+    Dim stDocName As String
+    
     stDocName = "rpt_Event_Report"
     DoCmd.OpenReport stDocName, acPreview
 
-Exit_cmd_Event_Report_Click:
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Event_Report_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Event_Report_Click
     
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnEventReport_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
+
+' ---------------------------------
+' Sub:          btnCalcDensity_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnCalcDensity_Click()
 Private Sub cmd_Calc_Density_Click()
-On Error GoTo Err_cmd_Calc_Reg_Density_Click
+On Error GoTo Err_Handler
 
-Dim db As DAO.Database
-Set db = CurrentDb
-Dim strSQL_Density As String
-Dim strSQL_Density_SE As String
-Dim accobj As AccessObject
-Dim stDocName As String
-Dim stLinkCriteria As String
-
-Select Case Me!grp_Density_Calcs.Value
-
-Case 1
-DoCmd.Hourglass True
-'**************Regional Density Funcation****************************
-
-fxn_Regional_Density
-
-'********************************************************************
-  
-    stDocName = "rpt_Regional_Density"
-    Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
-    If accobj.IsLoaded Then
-        If accobj.CurrentView = acCurViewPreview Then
-            DoCmd.Close acReport, stDocName
-            DoCmd.OpenReport stDocName, acViewPreview
-        End If
-    Else
-        DoCmd.OpenReport stDocName, acViewPreview
-    End If
-
-Case 2
-
-If cbo_Park = "" Or IsNull(cbo_Park) Then
-    MsgBox "A park must be selected from the list", vbExclamation, "NCRN Forest Bird Monitoring"
-    Exit Sub
-End If
-
-DoCmd.Hourglass True
-'*************Park Density Function*****************
-
-fxn_Park_Density
-
-'***************************************************
-
-    stDocName = "rpt_Park_Density"
-
-Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
-    If accobj.IsLoaded Then
-        If accobj.CurrentView = acCurViewPreview Then
-            DoCmd.Close acReport, stDocName
-            DoCmd.OpenReport stDocName, acViewPreview
-        End If
-    Else
-        DoCmd.OpenReport stDocName, acViewPreview
-    End If
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    Dim strSQL_Density As String
+    Dim strSQL_Density_SE As String
+    Dim accobj As AccessObject
+    Dim stDocName As String
+    Dim stLinkCriteria As String
     
-End Select
+    Select Case Me!grp_Density_Calcs.Value
+        Case 1
+            DoCmd.Hourglass True
+            '**************Regional Density Funcation****************************
+            fxn_Regional_Density
+            '********************************************************************
 
-DoCmd.SetWarnings True
+            stDocName = "rpt_Regional_Density"
+            Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
+            If accobj.IsLoaded Then
+                If accobj.CurrentView = acCurViewPreview Then
+                    DoCmd.Close acReport, stDocName
+                    DoCmd.OpenReport stDocName, acViewPreview
+                End If
+            Else
+                DoCmd.OpenReport stDocName, acViewPreview
+            End If
 
-Set accobj = Nothing
-Set db = Nothing
-DoCmd.Hourglass False
+        Case 2
+            If cbo_Park = "" Or IsNull(cbo_Park) Then
+                MsgBox "A park must be selected from the list", vbExclamation, "NCRN Forest Bird Monitoring"
+                Exit Sub
+            End If
 
+            DoCmd.Hourglass True
+            '*************Park Density Function*****************
+            fxn_Park_Density
+            '***************************************************
 
-Exit_cmd_Calc_Reg_Density_Click:
+            stDocName = "rpt_Park_Density"
+
+            Set accobj = Application.CurrentProject.AllReports.Item(stDocName)
+            If accobj.IsLoaded Then
+                If accobj.CurrentView = acCurViewPreview Then
+                    DoCmd.Close acReport, stDocName
+                    DoCmd.OpenReport stDocName, acViewPreview
+                End If
+            Else
+                DoCmd.OpenReport stDocName, acViewPreview
+            End If
+
+    End Select
+
+    DoCmd.SetWarnings True
+
+    Set accobj = Nothing
+    Set db = Nothing
+    DoCmd.Hourglass False
+
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Calc_Reg_Density_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Calc_Reg_Density_Click
-
-
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnCalcDensity_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
+
+' ---------------------------------
+' Sub:          btnExportDensity_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnExportDensity_Click()
 Private Sub cmd_Export_Density_Click()
-On Error GoTo Err_cmd_Export_Density_Click
-Dim db As DAO.Database
-Set db = CurrentDb
+On Error GoTo Err_Handler
 
-Dim strFileName As String
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    Dim strFileName As String
+    'Dim strExportEventID As String
+    Dim strFileLocation As String
 
-
-'Dim strExportEventID As String
-
-Dim strFileLocation As String
-
-'Check to see if a file name and location has been chosen.
+    'Check to see if a file name and location has been chosen.
     
-If Me!txt_Density_Export_File = "" Or IsNull(Me!txt_Density_Export_File) Then
+    If Me!txt_Density_Export_File = "" Or IsNull(Me!txt_Density_Export_File) Then
         MsgBox "You must enter a destination and file name for the export file.", , "Export Data"
         Me!txt_Density_Export_File.SetFocus
         Exit Sub
-Else
-
-    Select Case Me!grp_Density_Calcs.Value
-
-        Case 1
-DoCmd.Hourglass True
-'**************Regional Density Funcation****************************
-
-fxn_Regional_Density
-
-'********************************************************************
-
-
-            strFileName = "qrpt_Regional_Density"
-            strFileLocation = Me!txt_Density_Export_File
-        
-            ExportData strFileName, strFileLocation
+    Else
     
-    'DoCmd.Close
-        Case 2
-            If Me!cbo_Park = "" Or IsNull(Me!cbo_Park) Then
-                MsgBox "You must select a park before proceeding", vbExclamation, "Export Data"
-                Exit Sub
-                
-            Else
-            DoCmd.Hourglass True
-'*************Park Density Function*****************
-
-fxn_Park_Density
-
-'***************************************************
-
-
-
-    
-                strFileName = "_Park_Density_Report"
+        Select Case Me!grp_Density_Calcs.Value
+            Case 1
+                DoCmd.Hourglass True
+                '**************Regional Density Function****************************
+                fxn_Regional_Density
+                '********************************************************************
+            
+                strFileName = "qrpt_Regional_Density"
                 strFileLocation = Me!txt_Density_Export_File
-        
+            
                 ExportData strFileName, strFileLocation
-            End If
             
-        'DoCmd.Close
-        Case Else
-            MsgBox "Please choose whether you wish to export Regional or Park level density data", vbExclamation, "Export Data"
-            Exit Sub
+                'DoCmd.Close
             
+            Case 2
+                If Me!cbo_Park = "" Or IsNull(Me!cbo_Park) Then
+                    MsgBox "You must select a park before proceeding", vbExclamation, "Export Data"
+                    Exit Sub
+                Else
+                    DoCmd.Hourglass True
+                    '*************Park Density Function*****************
+                    fxn_Park_Density
+                    '***************************************************
+                    strFileName = "_Park_Density_Report"
+                    strFileLocation = Me!txt_Density_Export_File
+                
+                    ExportData strFileName, strFileLocation
+                End If
     
-End Select
-End If
+                'DoCmd.Close
+            Case Else
+                MsgBox "Please choose whether you wish to export Regional or Park level density data", vbExclamation, "Export Data"
+                Exit Sub
+    
+        End Select
+    End If
         
-        DoCmd.Hourglass False
+    DoCmd.Hourglass False
         
-        
-        
-        strFileName = ""
-Me!txt_Density_Export_File = ""
+    strFileName = ""
+    Me!txt_Density_Export_File = ""
    
-Exit_cmd_Export_Density_Click:
+Exit_Handler:
     Exit Sub
-Err_cmd_Export_Density_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Export_Density_Click
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnExportDensity_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Function fxn_Park_Density()
-Dim db As DAO.Database
-Set db = CurrentDb
-Dim strSQL_Density As String
-Dim strSQL_Density_SE As String
-
-'Check to see if the temporary tables exist.  If they do then delete them.
-If fxnTableExists("_tmp_tbl_Park_Density") Then
-   db.TableDefs.Delete ("_tmp_tbl_Park_Density")
-End If
-
-If fxnTableExists("_tmp_tbl_Park_Density_SE") Then
-   db.TableDefs.Delete ("_tmp_tbl_Park_Density_SE")
-End If
-
-'Create SQL statements to MAKE TMP TABLEs
-
-strSQL_Density = "SELECT qCALC_Park_Density_FINAL.Park, qCALC_Park_Density_FINAL.Common_Name, " _
-    & "qCALC_Park_Density_FINAL.Year, qCALC_Park_Density_FINAL.Density INTO _tmp_tbl_Park_Density " _
-    & "FROM qCALC_Park_Density_FINAL;"
-    
-strSQL_Density_SE = "SELECT qCALC_Park_Density_Variance_D.Park, qCALC_Park_Density_Variance_D.Common_Name, " _
-    & "qCALC_Park_Density_Variance_D.Year, qCALC_Park_Density_Variance_D.Std_Error INTO _tmp_tbl_Park_Density_SE " _
-    & "FROM qCALC_Park_Density_Variance_D;"
-    
-DoCmd.SetWarnings False
-
-DoCmd.RunSQL (strSQL_Density)
-DoCmd.RunSQL (strSQL_Density_SE)
-
-If fxnQueryExists("_Park_Density_Report") Then
-    db.QueryDefs.Delete ("_Park_Density_Report")
-End If
-    
-'*****Create the report/export query
-
-Dim rsData As DAO.Recordset
-Dim rsSE As DAO.Recordset
-Dim qDef As QueryDef
-Set rsData = db.OpenRecordset("qxtab_Park_Density")
-Set rsSE = db.OpenRecordset("qxtab_Park_Density_SE")
-Dim i As Integer
-Dim iColCnt As Integer
-rsData.MoveLast
-rsData.MoveFirst
-iColCnt = rsData.Fields.Count
-
-Dim strFieldData As String
-Dim strFieldSE As String
-
-sqlReport = "SELECT qxtab_Park_Density.Park, qxtab_Park_Density.Common_Name"
-
-For i = 2 To iColCnt - 1
-
-strFieldData = rsData.Fields(i).Name
-strFieldSE = rsSE.Fields(i).Name
-
-sqlReport = sqlReport & ", [" & strFieldData & "], [" & strFieldSE & "]"
-
-Next i
-
-sqlReport = sqlReport & " FROM qxtab_Park_Density INNER JOIN qxtab_Park_Density_SE ON qxtab_Park_Density.Common_Name = qxtab_Park_Density_SE.Common_Name;"
-
-Set qDef = db.CreateQueryDef("_Park_Density_Report", sqlReport)
-
-Set db = Nothing
-
-End Function
-Private Function fxn_Regional_Density()
-Dim db As DAO.Database
-Set db = CurrentDb
-Dim strSQL_Density As String
-Dim strSQL_Density_SE As String
-'Check to see if the temporary tables exist.  If they do then delete them.
-
-If fxnTableExists("_tmp_tbl_Reg_Density") Then
-   db.TableDefs.Delete ("_tmp_tbl_Reg_Density")
-End If
-
-If fxnTableExists("_tmp_tbl_Reg_Density_SE") Then
-   db.TableDefs.Delete ("_tmp_tbl_Reg_Density_SE")
-End If
-
-DoCmd.Hourglass True
-
-'Create SQL statements to MAKE TMP TABLEs
-
-
-strSQL_Density = "SELECT qCALC_Regional_Density_FINAL.Common_Name, qCALC_Regional_Density_FINAL.Year, qCALC_Regional_Density_FINAL.Density " _
-    & "INTO _tmp_tbl_Reg_Density " _
-    & "FROM qCALC_Regional_Density_FINAL;"
-    
-strSQL_Density_SE = "SELECT qCALC_Regional_Density_Variance_D.Common_Name, qCALC_Regional_Density_Variance_D.Year, qCALC_Regional_Density_Variance_D.Std_Error " _
-    & "INTO _tmp_tbl_Reg_Density_SE " _
-    & "FROM qCALC_Regional_Density_Variance_D;"
-    
-'Recreate the tables that feed into the CrossTab queries
-DoCmd.SetWarnings False
-
-DoCmd.RunSQL (strSQL_Density)
-DoCmd.RunSQL (strSQL_Density_SE)
-
-Set db = Nothing
-
-End Function
-
-
-
+' ---------------------------------
+' Sub:          btnRunBCI_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnRunBCI_Click()
 Private Sub cmd_Run_BCI_Click()
-Dim db As DAO.Database
-Set db = CurrentDb
+On Error GoTo Err_Handler
 
-If fxnTableExists("_tmp_tbl_BCI_Summary") Then
-   db.TableDefs.Delete ("_tmp_tbl_BCI_Summary")
-End If
-
-DoCmd.Hourglass True
-
-'Create SQL statements to MAKE TMP TABLEs
-Dim strSQL_BCI As String
-
-
-strSQL_BCI = "SELECT qCALC_BCI_Score_Final.Park, qCALC_BCI_Score_Final.Plot_Name, qCALC_BCI_Score_Final.GRTS_Order, " _
-    & "qCALC_BCI_Score_Final.Year, qCALC_BCI_Score_Final.Total_Count, qCALC_BCI_Score_Final.Sum_Scores " _
-    & "INTO _tmp_tbl_BCI_Summary " _
-    & "FROM qCALC_BCI_Score_Final;"
-   
+    Dim db As DAO.Database
+    Set db = CurrentDb
     
-'Recreate the tables that feed into the CrossTab queries
-DoCmd.SetWarnings False
-
-DoCmd.RunSQL (strSQL_BCI)
+    If fxnTableExists("_tmp_tbl_BCI_Summary") Then
+       db.TableDefs.Delete ("_tmp_tbl_BCI_Summary")
+    End If
     
-DoCmd.SetWarnings True
-
-
-On Error GoTo Error_Handler
-If Me!cbo_Park = "" Or IsNull(cbo_Park) Then
-    MsgBox "You must select a park running the report", vbExclamation, "NCRN Forest Bird Monitoring"
-    Me!cbo_Select_BCI_Park.SetFocus
-    Exit Sub
-End If
-
+    DoCmd.Hourglass True
+    
+    'Create SQL statements to MAKE TMP TABLEs
+    Dim strSQL_BCI As String
+    
+    strSQL_BCI = "SELECT qCALC_BCI_Score_Final.Park, qCALC_BCI_Score_Final.Plot_Name, qCALC_BCI_Score_Final.GRTS_Order, " _
+        & "qCALC_BCI_Score_Final.Year, qCALC_BCI_Score_Final.Total_Count, qCALC_BCI_Score_Final.Sum_Scores " _
+        & "INTO _tmp_tbl_BCI_Summary " _
+        & "FROM qCALC_BCI_Score_Final;"
+        
+    'Recreate the tables that feed into the CrossTab queries
+    DoCmd.SetWarnings False
+    
+    DoCmd.RunSQL (strSQL_BCI)
+        
+    DoCmd.SetWarnings True
+    
+    On Error GoTo Err_Handler
+    If Me!cbo_Park = "" Or IsNull(cbo_Park) Then
+        MsgBox "You must select a park running the report", vbExclamation, "NCRN Forest Bird Monitoring"
+        Me!cbo_Select_BCI_Park.SetFocus
+        Exit Sub
+    End If
+    
+    Dim stDocName As String
+    Dim accobj As AccessObject
+        
     stDocName = "rpt_BCI_Plots"
     
     'This function closes the report if the report happens to already be open then re-opens it.
@@ -3272,32 +3650,55 @@ End If
     Else
         DoCmd.OpenReport stDocName, acViewPreview
     End If
-Set accobj = Nothing
-Error_Handler:
-    Select Case Err.Number
         
-    End Select
-DoCmd.Hourglass False
-Set db = Nothing
+    Set accobj = Nothing
 
-End Sub
-
-Private Sub cmd_Spp_Concern_Rpt_Click()
-On Error GoTo Err_cmd_Spp_Concern_Rpt_Click
-Dim stDocName As String
-Dim accobj As AccessObject
-
-If Me!cbo_Year = "" Or IsNull(cbo_Year) Then
-    MsgBox "You must select a sampling year before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
-    Me!cbo_Year.SetFocus
+Exit_Handler:
+    DoCmd.Hourglass False
+    Set db = Nothing
     Exit Sub
     
-ElseIf Me!cbo_Year = "*" Then
-    MsgBox "Please select a single year from the list above before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
-    Me!cbo_Year.SetFocus
-    Exit Sub
-End If
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnRunBCI_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
+End Sub
 
+' ---------------------------------
+' Sub:          btnSppConcernRpt_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnSppConcernRpt_Click()
+Private Sub cmd_Spp_Concern_Rpt_Click()
+On Error GoTo Err_Handler
+
+    Dim stDocName As String
+    Dim accobj As AccessObject
+    
+    If Me!cbo_Year = "" Or IsNull(cbo_Year) Then
+        MsgBox "You must select a sampling year before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
+        Me!cbo_Year.SetFocus
+        Exit Sub
+    
+    ElseIf Me!cbo_Year = "*" Then
+        MsgBox "Please select a single year from the list above before running the report", vbExclamation, "NCRN Forest Bird Monitoring"
+        Me!cbo_Year.SetFocus
+        Exit Sub
+    End If
+    
     stDocName = "rpt_Spp_Management_Concern2"
     
     'This function closes the report if the report happens to already be open then re-opens it.
@@ -3311,197 +3712,382 @@ End If
         DoCmd.OpenReport stDocName, acViewPreview
     End If
     
-Set accobj = Nothing
-Exit_cmd_Spp_Concern_Rpt_Click:
-    Exit Sub
+    Set accobj = Nothing
 
-Err_cmd_Spp_Concern_Rpt_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Spp_Concern_Rpt_Click
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnSppConcernRpt_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
+
 End Sub
 
+' ---------------------------------
+' Sub:          btnViewBCIResults_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnViewBCIResults_Click()
 Private Sub cmd_View_BCI_Results_Click()
-Dim strQName As String
-
-If Me!cbo_Park = "" Or IsNull(Me!cbo_Park) Then
-    MsgBox "Please select a park from the list", , "NCRN Forest Bird Monitoring"
-    Me!cbo_Park.SetFocus
+On Error GoTo Err_Handler
+    Dim strQName As String
     
-Else
-    'strQName = "qxtab_TEST"
-    strQName = "qxtab_BCI_Summary"
-    DoCmd.OpenQuery strQName, acViewNormal, acReadOnly
+    If Me!cbo_Park = "" Or IsNull(Me!cbo_Park) Then
+        MsgBox "Please select a park from the list", , "NCRN Forest Bird Monitoring"
+        Me!cbo_Park.SetFocus
+    Else
+        'strQName = "qxtab_TEST"
+        strQName = "qxtab_BCI_Summary"
+        DoCmd.OpenQuery strQName, acViewNormal, acReadOnly
+    End If
 
-End If
-
-
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnViewBCIResults_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnViewResults_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnViewResults_Click()
 Private Sub cmd_View_Results_Click()
-If Me!cbo_Select_Species_Presence = "" Or IsNull(cbo_Select_Species_Presence) Then
+On Error GoTo Err_Handler
+
+    If Me!cbo_Select_Species_Presence = "" Or IsNull(cbo_Select_Species_Presence) Then
+        MsgBox "You must select a species from the list", vbExclamation, "NCRN Bird Monitoring"
+        Me!cbo_Select_Species_Presence.SetFocus
+        Exit Sub
+    End If
     
-    MsgBox "You must select a species from the list", vbExclamation, "NCRN Bird Monitoring"
-    Me!cbo_Select_Species_Presence.SetFocus
-    Exit Sub
-End If
-
-Dim strDocName As String
-
-'If Not IsNull(Me!cbo_Select_Species_Presence) Then
+    Dim strDocName As String
+    
+    'If Not IsNull(Me!cbo_Select_Species_Presence) Then
     
     strDocName = "qry_Species_PRESENCE_c"
-       DoCmd.OpenQuery strDocName, acViewNormal, acEdit
-'Else
-'    MsgBox "Select species prior to viewing the resutls", vbInformation, "NCRN Bird Monitoring Database"
-'End If
+    DoCmd.OpenQuery strDocName, acViewNormal, acEdit
+    'Else
+    '    MsgBox "Select species prior to viewing the resutls", vbInformation, "NCRN Bird Monitoring Database"
+    'End If
 
-
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnViewResults_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
+
+' ---------------------------------
+' Sub:          btnSnapShot_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnSnapShot_Click()
 Private Sub cmdSnapShot_Click()
+On Error GoTo Err_Handler
 
-Dim db As DAO.Database
-Dim rs As DAO.Recordset
-Dim tdef As TableDef
-
-Set db = CurrentDb
-Set rs = db.OpenRecordset("qArchiveTables")
-
-'populate the recordset so the iRecCnt returns the correct record count
-rs.MoveLast
-rs.MoveFirst
-
-'the name of the table being exported
-Dim strExportFileName As String
-
-'the path to the directory where the database currently resides
-Dim strDestDir As String
-
-'Set these variables to use with the progress meter.
-Dim iRecCnt As Integer
-Dim iLoop As Integer
-iLoop = 0
-  
-strDestDir = Me!txt_Export_Data_File & CStr(Format(Now(), "yyyymmdd")) & ".csv"
-
-Do While Not rs.EOF
-iRecCnt = rs.RecordCount
-DoCmd.OpenForm "frm_Proc_Status"
-DoCmd.RunCommand acCmdSaveRecord
-
-MsgBox iRecCnt & " " & iLoop
-
-        For Each tdef In db.TableDefs
+    Dim db As DAO.Database
+    Dim rs As DAO.Recordset
+    Dim tdef As TableDef
+    
+    Set db = CurrentDb
+    Set rs = db.OpenRecordset("qArchiveTables")
+    
+    'populate the recordset so the iRecCnt returns the correct record count
+    rs.MoveLast
+    rs.MoveFirst
+    
+    'the name of the table being exported
+    Dim strExportFileName As String
+    
+    'the path to the directory where the database currently resides
+    Dim strDestDir As String
+    
+    'Set these variables to use with the progress meter.
+    Dim iRecCnt As Integer
+    Dim iLoop As Integer
+    iLoop = 0
+    
+    strDestDir = Me!txt_Export_Data_File & CStr(Format(Now(), "yyyymmdd")) & ".csv"
+    
+    Do While Not rs.EOF
+    iRecCnt = rs.RecordCount
+    DoCmd.OpenForm "frm_Proc_Status"
+    DoCmd.RunCommand acCmdSaveRecord
+    
+    MsgBox iRecCnt & " " & iLoop
+    
+    For Each tdef In db.TableDefs
+    
+    Dim strAppTableName As String
+    strAppTableName = tdef.Name
+         If strAppTableName = rs![Link_table] Then
+            strExportFileName = strAppTableName
             
-            Dim strAppTableName As String
-            strAppTableName = tdef.Name
-                 If strAppTableName = rs![Link_table] Then
-                    strExportFileName = strAppTableName
-                    
-                    'fxn_ExportToCSV strFileName, strInitDir & "\" & strFileName & CStr(Format(Now(), "yyyymmdd")) 'strFileLocation
-                    'DoCmd.TransferText acExportDelim, , strExportFileName, strInitDir & "\" & strExportFileName & "_Export" ' & CStr(Format(Now(), "yyyymmdd")), True
-                     DoCmd.TransferText acExportDelim, , strAppTableName, strDestDir, True
-                     '"C:\Users\gsanders\Desktop" & "\" & strExportFileName & "_Export.csv", True
-                     
-                    
-                 
-                    fxn_ProcStatus iRecCnt, iLoop
-                    
-                 End If
-                               
-           
-                GoTo NextRecord:
-
+            'fxn_ExportToCSV strFileName, strInitDir & "\" & strFileName & CStr(Format(Now(), "yyyymmdd")) 'strFileLocation
+            'DoCmd.TransferText acExportDelim, , strExportFileName, strInitDir & "\" & strExportFileName & "_Export" ' & CStr(Format(Now(), "yyyymmdd")), True
+             DoCmd.TransferText acExportDelim, , strAppTableName, strDestDir, True
+             '"C:\Users\gsanders\Desktop" & "\" & strExportFileName & "_Export.csv", True
             
+            fxn_ProcStatus iRecCnt, iLoop
+            
+         End If
+        
+        GoTo NextRecord:
+
 NextRecord:
         Next
-
-rs.MoveNext
-iLoop = iLoop + 1
-
-Loop
-
-DoCmd.Close acForm, "frm_Proc_Status"
-MsgBox "Export Complete", , "NCRN Forest Bird Monitoring"
+        
+        rs.MoveNext
+        iLoop = iLoop + 1
+    
+    Loop
+    
+    DoCmd.Close acForm, "frm_Proc_Status"
+    MsgBox "Export Complete", , "NCRN Forest Bird Monitoring"
     
     'reset the naming variables for the csv file
-Set rs = Nothing
-Set db = Nothing
-Set tdef = Nothing
+    Set rs = Nothing
+    Set db = Nothing
+    Set tdef = Nothing
 
-                
-End Sub
-
-Private Sub grp_BCI_AfterUpdate()
-If Me!grp_BCI = 1 Then
-   ' cbo_Select_BCI_Plot = ""
-    'cbo_Select_BCI_Plot.Enabled = False
-    'cbo_Select_BCI_Park.Enabled = True
-ElseIf Me!grp_BCI = 2 Then
-    'cbo_Select_BCI_Park = ""
-    'cbo_Select_BCI_Park.Enabled = False
-    'cbo_Select_BCI_Plot.Enabled = True
-End If
-
+Exit_Handler:
+    Exit Sub
     
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnSnapShot_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
-Private Sub grp_Density_Calcs_AfterUpdate()
+' ---------------------------------
+' Sub:          grpBCI_AfterUpdate
+' Description:  bci after update actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub grpBCI_AfterUpdate()
+Private Sub grp_BCI_AfterUpdate()
+On Error GoTo Err_Handler
 
+    If Me!grp_BCI = 1 Then
+        ' cbo_Select_BCI_Plot = ""
+        'cbo_Select_BCI_Plot.Enabled = False
+        'cbo_Select_BCI_Park.Enabled = True
+    ElseIf Me!grp_BCI = 2 Then
+        'cbo_Select_BCI_Park = ""
+        'cbo_Select_BCI_Park.Enabled = False
+        'cbo_Select_BCI_Plot.Enabled = True
+    End If
+
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - grpBCI_AfterUpdate[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
+End Sub
+
+' ---------------------------------
+' Sub:          grpDensityCalcs_AfterUpdate
+' Description:  density calcs after update actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub grpDensityCalcs_AfterUpdate
+Private Sub grp_Density_Calcs_AfterUpdate()
+On Error GoTo Err_Handler
   
     Me!cmd_Calc_Density.Enabled = True
-   
 
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - grpDensityCalcs_AfterUpdate[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          grpSelectAbundanceReport_AfterUpdate
+' Description:  after update actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub grpSelectAbundanceReport_AfterUpdate()
 Private Sub grp_Select_Abundance_Report_AfterUpdate()
+On Error GoTo Err_Handler
 
     Me!cmd_Rpt_Points_Detected.Enabled = True
-   ' Me!cmd_Abundance_Calc.Enabled = True
+    ' Me!cmd_Abundance_Calc.Enabled = True
     Me!cmd_Park_Spp_Summary.Enabled = True
     Me!cmd_Export_Proportion_Detected.Enabled = True
     Me!cmd_Export_Abundance.Enabled = True
     Me!cmd_Export_Species_Summary.Enabled = True
-
-'If grp_Select_Abundance_Report = 2 Then
-  '  Me!cbo_Select_Abundance_Parks.Enabled = True
- '   Me!cmd_Rpt_Points_Detected.Enabled = True
-  '  Me!cmd_Abundance_Calc.Enabled = True
-   ' Me!cmd_Export_Proportion_Detected.Enabled = True
-    'Me!cmd_Export_Abundance.Enabled = True
-    'Me!cmd_Export_Species_Summary.Enabled = True
     
-'Else
- '   Me!cmd_Abundance_Calc.Enabled = True
-  '  Me!cmd_Rpt_Points_Detected.Enabled = False
-   ' Me!cmd_Export_Proportion_Detected.Enabled = False
-   ' Me!cbo_Select_Abundance_Parks = ""
-    'Me!cbo_Select_Abundance_Parks.Enabled = False
-'End If
+    'If grp_Select_Abundance_Report = 2 Then
+        '  Me!cbo_Select_Abundance_Parks.Enabled = True
+        '   Me!cmd_Rpt_Points_Detected.Enabled = True
+        '  Me!cmd_Abundance_Calc.Enabled = True
+        ' Me!cmd_Export_Proportion_Detected.Enabled = True
+        'Me!cmd_Export_Abundance.Enabled = True
+        'Me!cmd_Export_Species_Summary.Enabled = True
+    
+    'Else
+        '   Me!cmd_Abundance_Calc.Enabled = True
+        '  Me!cmd_Rpt_Points_Detected.Enabled = False
+        ' Me!cmd_Export_Proportion_Detected.Enabled = False
+        ' Me!cbo_Select_Abundance_Parks = ""
+        'Me!cbo_Select_Abundance_Parks.Enabled = False
+    'End If
 
+Exit_Handler:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - grpSelectAbundanceReport_AfterUpdate[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Sub:          btnClose_Click
+' Description:  button click actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Sub btnClose_Click()
 Private Sub cmd_Close_Click()
-On Error GoTo Err_cmd_Close_Click
-
+On Error GoTo Err_Handler
 
     'If Me.Dirty Then Me.Dirty = False
     DoCmd.Close
 
-Exit_cmd_Close_Click:
+Exit_Handler:
     Exit Sub
-
-Err_cmd_Close_Click:
-    MsgBox Err.Description
-    Resume Exit_cmd_Close_Click
     
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnClose_Click[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Sub
 
+' ---------------------------------
+' Function:     ProcStatus
+' Description:  updates processing status
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+' Public Function ProcStatus(iRecCnt As Integer, iLoop As Integer)
 Public Function fxn_ProcStatus(iRecCnt As Integer, iLoop As Integer)
+On Error GoTo Err_Handler
 
-Dim frmStatus As Form
-Set frmStatus = Forms!frm_Proc_Status
+    Dim frmStatus As Form
+    Set frmStatus = Forms!frm_Proc_Status
 
-        With frmStatus
+    With frmStatus
         'update the loop to reflect the number of parks processed
         
         'update the progress bar to reflect the number of parks processed.
@@ -3511,7 +4097,179 @@ Set frmStatus = Forms!frm_Proc_Status
         '!boxB.Width = (!boxA.Width / rstParks.RecordCount) * rstParks.AbsolutePosition
         
         .Repaint
-End With
-Set frmStatus = Nothing
+    End With
 
+    Set frmStatus = Nothing
+
+Exit_Handler:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ProcStatus[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
+End Function
+
+' ---------------------------------
+' Sub:          GetParkDensity
+' Description:  get park density actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Function GetParkDensity()
+Private Function fxn_Park_Density()
+On Error GoTo Err_Handler
+
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    Dim strSQL_Density As String
+    Dim strSQL_Density_SE As String
+    
+    'Check to see if the temporary tables exist.  If they do then delete them.
+    If fxnTableExists("_tmp_tbl_Park_Density") Then
+       db.TableDefs.Delete ("_tmp_tbl_Park_Density")
+    End If
+
+    If fxnTableExists("_tmp_tbl_Park_Density_SE") Then
+       db.TableDefs.Delete ("_tmp_tbl_Park_Density_SE")
+    End If
+
+    'Create SQL statements to MAKE TMP TABLEs
+    
+    strSQL_Density = "SELECT qCALC_Park_Density_FINAL.Park, qCALC_Park_Density_FINAL.Common_Name, " _
+        & "qCALC_Park_Density_FINAL.Year, qCALC_Park_Density_FINAL.Density INTO _tmp_tbl_Park_Density " _
+        & "FROM qCALC_Park_Density_FINAL;"
+        
+    strSQL_Density_SE = "SELECT qCALC_Park_Density_Variance_D.Park, qCALC_Park_Density_Variance_D.Common_Name, " _
+        & "qCALC_Park_Density_Variance_D.Year, qCALC_Park_Density_Variance_D.Std_Error INTO _tmp_tbl_Park_Density_SE " _
+        & "FROM qCALC_Park_Density_Variance_D;"
+        
+    DoCmd.SetWarnings False
+    
+    DoCmd.RunSQL (strSQL_Density)
+    DoCmd.RunSQL (strSQL_Density_SE)
+
+    If fxnQueryExists("_Park_Density_Report") Then
+        db.QueryDefs.Delete ("_Park_Density_Report")
+    End If
+    
+    '*****Create the report/export query
+    Dim rsData As DAO.Recordset
+    Dim rsSE As DAO.Recordset
+    Dim qDef As QueryDef
+    Set rsData = db.OpenRecordset("qxtab_Park_Density")
+    Set rsSE = db.OpenRecordset("qxtab_Park_Density_SE")
+    Dim i As Integer
+    Dim iColCnt As Integer
+    rsData.MoveLast
+    rsData.MoveFirst
+    iColCnt = rsData.Fields.Count
+
+    Dim strFieldData As String
+    Dim strFieldSE As String
+    Dim sqlReport As String
+    
+    sqlReport = "SELECT qxtab_Park_Density.Park, qxtab_Park_Density.Common_Name"
+    
+    For i = 2 To iColCnt - 1
+    
+        strFieldData = rsData.Fields(i).Name
+        strFieldSE = rsSE.Fields(i).Name
+        
+        sqlReport = sqlReport & ", [" & strFieldData & "], [" & strFieldSE & "]"
+    
+    Next i
+
+    sqlReport = sqlReport & " FROM qxtab_Park_Density INNER JOIN qxtab_Park_Density_SE ON qxtab_Park_Density.Common_Name = qxtab_Park_Density_SE.Common_Name;"
+
+    Set qDef = db.CreateQueryDef("_Park_Density_Report", sqlReport)
+
+    Set db = Nothing
+
+Exit_Handler:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetParkDensity[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
+End Function
+
+' ---------------------------------
+' Sub:          GetRegionalDensity
+' Description:  regional density calculation actions
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Mark Lehman/Geoff Sanders, unknown - for NCRN tools
+' Adapted:      Bonnie Campbell, February 17, 2019
+' Revisions:
+' Revisions:    ML/GS - unknown - initial version
+'               BLC - 2/17/2019 - added documentation, error handling
+' ---------------------------------
+'Private Function GetRegionalDensity()
+Private Function fxn_Regional_Density()
+On Error GoTo Err_Handler
+
+    Dim db As DAO.Database
+    Set db = CurrentDb
+    Dim strSQL_Density As String
+    Dim strSQL_Density_SE As String
+    'Check to see if the temporary tables exist.  If they do then delete them.
+    
+    If fxnTableExists("_tmp_tbl_Reg_Density") Then
+       db.TableDefs.Delete ("_tmp_tbl_Reg_Density")
+    End If
+    
+    If fxnTableExists("_tmp_tbl_Reg_Density_SE") Then
+       db.TableDefs.Delete ("_tmp_tbl_Reg_Density_SE")
+    End If
+    
+    DoCmd.Hourglass True
+    
+    'Create SQL statements to MAKE TMP TABLEs
+    
+    
+    strSQL_Density = "SELECT qCALC_Regional_Density_FINAL.Common_Name, qCALC_Regional_Density_FINAL.Year, qCALC_Regional_Density_FINAL.Density " _
+        & "INTO _tmp_tbl_Reg_Density " _
+        & "FROM qCALC_Regional_Density_FINAL;"
+        
+    strSQL_Density_SE = "SELECT qCALC_Regional_Density_Variance_D.Common_Name, qCALC_Regional_Density_Variance_D.Year, qCALC_Regional_Density_Variance_D.Std_Error " _
+        & "INTO _tmp_tbl_Reg_Density_SE " _
+        & "FROM qCALC_Regional_Density_Variance_D;"
+        
+    'Recreate the tables that feed into the CrossTab queries
+    DoCmd.SetWarnings False
+    
+    DoCmd.RunSQL (strSQL_Density)
+    DoCmd.RunSQL (strSQL_Density_SE)
+
+Set db = Nothing
+
+Exit_Handler:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRegionalDensity[frm_Review_Analysis_Tools form])"
+    End Select
+    Resume Exit_Handler
 End Function
